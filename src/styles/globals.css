@@ -11,3 +11,41 @@
 body {
   /* background: #fff; */
 }
+
+@keyframes AnimationHero {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wrraper-animation-first {
+  opacity: 0;
+  animation: AnimationHero;
+  animation-duration: 3s;
+  animation-delay: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wrraper-animation-secound {
+  opacity: 0;
+  animation: AnimationHero;
+  animation-duration: 3s;
+  animation-delay: 0.8s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wrraper-animation-third {
+  opacity: 0;
+  animation: AnimationHero;
+  animation-duration: 3s;
+  animation-delay: 1.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}

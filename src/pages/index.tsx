@@ -1,9 +1,11 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
+import { Inter, Lora } from "@next/font/google";
+import Link from "next/link";
 
-const inter = Inter({ subsets: ["latin"] });
+const lora = Lora({
+  weight: "700",
+  subsets: ["latin"],
+});
 
 export default function Home() {
   return (
@@ -15,8 +17,49 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="h-[600px] w-full flex justify-center items-center">
-        <h1 className="text-[120px] font-mono"> Hi You...! </h1>
+      <div className="hero min-h-screen lg:py-[0px] py-[20px] ">
+        <div className="hero-content lg:flex-row flex-col   h-screen">
+          <div>
+            <h1
+              style={{
+                fontFamily: lora.style.fontFamily,
+              }}
+              className={`wrraper-animation-first text-5xl font-bold lg:w-6/12`}
+            >
+              Best Place to Find Your Favorit Books.
+            </h1>
+            <p className="wrraper-animation-secound uppercase py-6">
+              read 1000 books and walk 1000 miles
+            </p>
+            <div className="wrraper-animation-third">
+              <p className="py-1 lg:w-10/12 w-full">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+                nemo totam delectus ut deleniti, accusamus illum magni, facilis
+                libero dolore vero quae. Sint, impedit beatae similique
+                distinctio nihil recusandae. Itaque!
+              </p>
+              <Link href="login">
+                <button className="btn btn-primary mt-[10px]">
+                  Get Started
+                </button>
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-stretch gap-6">
+            <div className="self-end mb-[60px] cursor-pointer">
+              <img
+                src="/images/رواية-ليطمئن-قلبي (eloualid-book.com).jpg"
+                className="max-w-sm rounded-lg shadow-2xl"
+              />
+            </div>
+            <div className="self-end cursor-pointer">
+              <img
+                src="/images/2d8478184f3843cc96f277296fcf3966.png.jpg"
+                className="max-w-sm rounded-lg shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
