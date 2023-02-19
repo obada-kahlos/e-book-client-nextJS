@@ -55,7 +55,6 @@ export default function Home() {
       dataAosOffset: "150",
     },
   ];
-
   const StatsData = [
     {
       icon: <HiOutlineArrowDownTray />,
@@ -94,7 +93,6 @@ export default function Home() {
       dataAosOffset: "30",
     },
   ];
-
   return (
     <>
       <Head>
@@ -180,7 +178,10 @@ export default function Home() {
       <div className="my-[30px]">
         <div className="wrapper overflow-hidden stats grid grid-cols-12 gap-4">
           {StatsData.map((item, key) => (
-            <div className="lg:col-span-3 md:col-span-6 col-span-12 flex justify-center flex-col gap-2 items-center">
+            <div
+              key={key}
+              className="lg:col-span-3 md:col-span-6 col-span-12 flex justify-center flex-col gap-2 items-center"
+            >
               <div
                 className="stat"
                 data-aos={item.dataAos}
