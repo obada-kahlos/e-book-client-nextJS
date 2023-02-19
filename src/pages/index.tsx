@@ -101,8 +101,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <div className="wrapper hero min-h-screen lg:py-[0px] py-[20px] ">
+      <div className="wrapper md:py-[20px] py-[80px] hero min-h-screen lg:py-[0px]">
         <div className="hero-content lg:flex-row flex-col   h-screen">
           <div>
             <h1
@@ -154,7 +153,7 @@ export default function Home() {
                   hover:shadow-myShadow hover:border-none 
                   border cursor-pointer border-[rgba(255,255,255,0.4)] 
                   rounded-[30px] px-[20px] py-[40px] 
-                  col-span-6 flex items-center justify-center flex-col"
+                  md:col-span-6 col-span-12 flex items-center justify-center flex-col"
               data-aos={item.dataAos}
               data-aos-duration={item.dataAosDuration}
               data-aos-offset={item.dataAosOffset}
@@ -176,7 +175,7 @@ export default function Home() {
       </div>
       <div className="divider"></div>
       <div className="my-[30px]">
-        <div className="wrapper overflow-hidden stats grid grid-cols-12 gap-4">
+        <div className="wrapper overflow-hidden bg-[#2A303C] rounded-2xl grid grid-cols-12 gap-4">
           {StatsData.map((item, key) => (
             <div
               key={key}

@@ -10,6 +10,7 @@
 
 body {
   /* background: #fff; */
+  overflow-x: hidden;
 }
 
 @keyframes AnimationHero {
@@ -66,6 +67,13 @@ body {
 @media (min-width: 1200px) {
   div.wrapper {
     width: 1200px;
+    margin: 0px auto;
+    padding: 30px 0px;
+  }
+}
+@media (max-width: 768px) {
+  div.wrapper {
+    width: 95%;
     margin: 0px auto;
     padding: 30px 0px;
   }
