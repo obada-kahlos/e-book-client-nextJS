@@ -101,43 +101,45 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="wrapper md:py-[20px] py-[80px] hero min-h-screen lg:py-[0px]">
-        <div className="hero-content lg:flex-row flex-col   h-screen">
-          <div>
-            <h1
-              className={`wrraper-animation-first text-5xl font-bold lg:w-8/12`}
-            >
-              Best Place to Find Your Favorit Books.
-            </h1>
-            <p className="wrraper-animation-secound uppercase py-6">
-              read 1000 books and walk 1000 miles
-            </p>
-            <div className="wrraper-animation-third">
-              <p className="py-1 lg:w-10/12 w-full">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-                nemo totam delectus ut deleniti, accusamus illum magni, facilis
-                libero dolore vero quae. Sint, impedit beatae similique
-                distinctio nihil recusandae. Itaque!
+      <div className="wrapper">
+        <div className="md:py-[20px] hero min-h-screen lg:py-[0px]">
+          <div className="hero-content lg:flex-row flex-col  h-screen">
+            <div>
+              <h1
+                className={`wrraper-animation-first md:text-5xl text-4xl font-bold lg:w-8/12`}
+              >
+                Best Place to Find Your Favorit Books.
+              </h1>
+              <p className="wrraper-animation-secound uppercase py-6">
+                read 1000 books and walk 1000 miles
               </p>
-              <Link href="login">
-                <button className="btn btn-primary mt-[10px]">
-                  Get Started
-                </button>
-              </Link>
+              <div className="wrraper-animation-third">
+                <p className="py-1 lg:w-10/12 break-words">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+                  nemo totam delectus ut deleniti, accusamus illum magni,
+                  facilis libero dolore vero quae. Sint, impedit beatae
+                  similique distinctio nihil recusandae. Itaque!
+                </p>
+                <Link href="login">
+                  <button className="btn btn-primary mt-[10px]">
+                    Get Started
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="flex items-stretch gap-6 wrraper-animation-forth">
-            <div className="self-end mb-[60px] cursor-pointer">
-              <img
-                src="/images/رواية-ليطمئن-قلبي (eloualid-book.com).jpg"
-                className="max-w-sm rounded-lg shadow-2xl"
-              />
-            </div>
-            <div className="self-end cursor-pointer">
-              <img
-                src="/images/2d8478184f3843cc96f277296fcf3966.png.jpg"
-                className="max-w-sm rounded-lg shadow-2xl"
-              />
+            <div className="flex items-stretch gap-6 wrraper-animation-forth">
+              <div className="self-end mb-[60px] cursor-pointer">
+                <img
+                  src="/images/رواية-ليطمئن-قلبي (eloualid-book.com).jpg"
+                  className="max-w-sm rounded-lg shadow-2xl"
+                />
+              </div>
+              <div className="self-end cursor-pointer lg:block hidden">
+                <img
+                  src="/images/2d8478184f3843cc96f277296fcf3966.png.jpg"
+                  className="max-w-sm rounded-lg shadow-2xl"
+                />
+              </div>
             </div>
           </div>
         </div>
