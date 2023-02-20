@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" navbar md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md dark:bg-dark-PrimaryColour bg-light-PrimaryColour  text-[white] z-[999]">
+    <div className=" navbar md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md bg-dark-PrimaryColour  text-[white] z-[999]">
       <div>
         {/* <label
           className="swap swap-rotate"
@@ -54,7 +54,7 @@ const Navbar = () => {
       <div className="navbar-start text-[#fff]">
         <Link
           href="/"
-          className="btn btn-ghost normal-case text-xl dark:text-bothColor"
+          className="btn btn-ghost normal-case text-xl text-bothColor"
           style={{
             fontFamily: lora.style.fontFamily,
           }}

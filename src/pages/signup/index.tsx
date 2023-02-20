@@ -201,7 +201,7 @@ const Signup = () => {
                   <div className="form-control mt-4">
                     {isLoading ? (
                       <button
-                        className="btn glass loading"
+                        className="btn dark:glass btn-primary loading"
                         type="submit"
                       ></button>
                     ) : (
@@ -213,7 +213,10 @@ const Signup = () => {
                             </span>
                           </div>
                         ) : null}
-                        <button className="btn glass" type="submit">
+                        <button
+                          className="btn dark:glass btn-primary"
+                          type="submit"
+                        >
                           SignUp
                         </button>
                       </>

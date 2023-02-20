@@ -123,7 +123,7 @@ const Login = () => {
                   </div>
                   {isLoading ? (
                     <button
-                      className="btn glass loading"
+                      className="btn dark:glass btn-primary loading"
                       type="submit"
                     ></button>
                   ) : (
@@ -135,7 +135,10 @@ const Login = () => {
                           </span>
                         </div>
                       ) : null}
-                      <button className="btn glass" type="submit">
+                      <button
+                        className="btn dark:glass btn-primary"
+                        type="submit"
+                      >
                         Login
                       </button>
                     </>
@@ -161,7 +164,10 @@ const Login = () => {
               />
             </label>
           </div>
-          <button className="btn glass btn-block my-[10px]" type="submit">
+          <button
+            className="btn dark:glass btn-primary btn-block my-[10px]"
+            type="submit"
+          >
             Submit
           </button>
         </>

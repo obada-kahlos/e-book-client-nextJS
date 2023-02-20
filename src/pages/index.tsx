@@ -154,7 +154,7 @@ export default function Home() {
             >
               <span className="text-[80px] mb-[20px]">{item.icon}</span>
               <h3
-                className="text-[40px]"
+                className="text-[40px] text-bothColor"
                 style={{
                   fontFamily: lora.style.fontFamily,
                 }}
@@ -181,12 +181,12 @@ export default function Home() {
                 data-aos-duration={item.dataAosDuration}
                 data-aos-offset={item.dataAosOffset}
               >
-                <div className="stat-figure text-primary text-[30px]">
+                <div className="stat-figure text-primary  text-[30px]">
                   {item.icon}
                 </div>
-                <div className="stat-title">{item.title}</div>
+                <div className="stat-title text-[#fff]">{item.title}</div>
                 <div className="stat-value text-primary">{item.value}</div>
-                <div className="stat-desc">{item.desc}</div>
+                <div className="stat-desc text-[#fff]">{item.desc}</div>
               </div>
             </div>
           ))}
