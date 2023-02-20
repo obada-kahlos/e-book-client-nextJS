@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md dark:bg-dark-PrimaryColour bg-light-PrimaryColour  text-[white] z-[999]">
+    <div className=" navbar md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md dark:bg-dark-PrimaryColour bg-light-PrimaryColour  text-[white] z-[999]">
       <div>
         {/* <label
           className="swap swap-rotate"
@@ -54,7 +54,7 @@ const Navbar = () => {
       <div className="navbar-start text-[#fff]">
         <Link
           href="/"
-          className="btn btn-ghost normal-case text-xl"
+          className="btn btn-ghost normal-case text-xl dark:text-bothColor"
           style={{
             fontFamily: lora.style.fontFamily,
           }}
@@ -86,10 +86,12 @@ const Navbar = () => {
             <div className="navbar-end">
               <div className="flex gap-2">
                 <Link href="login">
-                  <button className="btn btn-primary w-[120px]"> Login </button>
+                  <button className="btn md:w-[120px] w-[80px] md:text-[16px] text-[14px]">
+                    Login
+                  </button>
                 </Link>
                 <Link href="signup">
-                  <button className="btn btn-primary btn-outline w-[120px]">
+                  <button className="btn md:w-[120px] w-[80px] md:text-[16px] text-[14px]">
                     Sginup
                   </button>
                 </Link>

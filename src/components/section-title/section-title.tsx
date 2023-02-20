@@ -12,12 +12,13 @@ const lora = Lora({
 const SectionTitle: React.FC<sectionTitle> = (props) => {
   return (
     <h2
-      className="text-center mb-[20px] md:text-[60px] dark:text-dark-headingColor text-light-[#222]"
+      className="text-center mb-[20px] capitalize md:text-[60px] text-[26px] dark:text-dark-headingColor text-light-[#222]"
       style={{
         fontFamily: lora.style.fontFamily,
       }}
     >
       {props.title}
+      <span className="text-bothColor">.</span>
     </h2>
   );
 };

@@ -35,24 +35,16 @@ export default function Home() {
       title: "Title",
       text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobisamet maxime quia est labore eos autem cum in earum blanditiis.",
       dataAos: "fade-up",
-      dataAosDuration: "1400",
-      dataAosOffset: "150",
-    },
-    {
-      icon: <IoAtCircleOutline />,
-      title: "Title",
-      text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobisamet maxime quia est labore eos autem cum in earum blanditiis.",
-      dataAos: "fade-up",
       dataAosDuration: "1600",
-      dataAosOffset: "150",
+      dataAosOffset: "180",
     },
     {
       icon: <IoBicycleOutline />,
       title: "Title",
       text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobisamet maxime quia est labore eos autem cum in earum blanditiis.",
       dataAos: "fade-up",
-      dataAosDuration: "1200",
-      dataAosOffset: "150",
+      dataAosDuration: "2000",
+      dataAosOffset: "200",
     },
   ];
   const StatsData = [
@@ -101,14 +93,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="wrapper">
+      <div className="wrapper md:py-[30px] py-[80px]">
         <div className="md:py-[20px] hero min-h-screen lg:py-[0px]">
           <div className="hero-content lg:flex-row flex-col  h-screen">
-            <div>
+            <div className="md:text-left text-center">
               <h1
                 className={`wrraper-animation-first md:text-5xl text-4xl font-bold lg:w-8/12`}
               >
-                Best Place to Find Your Favorit Books.
+                Best Place to Find Your Favorit{" "}
+                <span className="text-bothColor">Books.</span>
               </h1>
               <p className="wrraper-animation-secound uppercase py-6">
                 read 1000 books and walk 1000 miles
@@ -121,7 +114,7 @@ export default function Home() {
                   similique distinctio nihil recusandae. Itaque!
                 </p>
                 <Link href="login">
-                  <button className="btn btn-primary mt-[10px]">
+                  <button className="btn md:w-10/12 w-full btn-primary mt-[10px]">
                     Get Started
                   </button>
                 </Link>
@@ -146,16 +139,14 @@ export default function Home() {
       </div>
       <div className="divider"></div>
       <div className="wrapper">
-        <SectionTitle title="About Us." />
-        <div className="grid grid-cols-12 gap-6 items-center justify-center ">
+        <SectionTitle title="What do we offer" />
+        <div className="grid grid-cols-12 gap-6 ">
           {AboutData.map((item, key) => (
             <div
-              className="
-                  dark:bg-dark-bgColor bg-light-bgColor
-                  hover:shadow-myShadow hover:border-none 
-                  border cursor-pointer border-[rgba(255,255,255,0.4)] 
+              className="dark:bg-dark-bgColor bg-light-bgColor
+                  border dark:border-[rgba(255,255,255,0.4)] border-[rgba(0,0,0,0.6)]
                   rounded-[30px] px-[20px] py-[40px] 
-                  md:col-span-6 col-span-12 flex items-center justify-center flex-col"
+                  md:col-span-4 col-span-12 flex items-center justify-center flex-col"
               data-aos={item.dataAos}
               data-aos-duration={item.dataAosDuration}
               data-aos-offset={item.dataAosOffset}
@@ -177,7 +168,8 @@ export default function Home() {
       </div>
       <div className="divider"></div>
       <div className="my-[30px]">
-        <div className="wrapper overflow-hidden bg-[#2A303C] rounded-2xl grid grid-cols-12 gap-4">
+        <SectionTitle title="Stats" />
+        <div className="wrapper stats overflow-y-hidden bg-[#2A303C] rounded-2xl grid grid-cols-12 gap-4">
           {StatsData.map((item, key) => (
             <div
               key={key}
@@ -199,6 +191,10 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </div>
+      <div className="divider"></div>
+      <div className="wrapper my-[30px]">
+        <SectionTitle title="" />
       </div>
     </>
   );

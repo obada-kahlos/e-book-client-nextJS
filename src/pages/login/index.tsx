@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
 import { useLoginMutation } from "@/api/register/api";
 import { useRouter } from "next/router";
+import Popup from "@/components/popup/popup";
 
 const Login = () => {
   const schema = yup.object().shape({
@@ -44,102 +45,128 @@ const Login = () => {
   }, [isSuccess]);
 
   return (
-    <div className="hero min-h-screen ">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-            atque iste porro dicta, soluta id, recusandae deleniti mollitia
-            provident assumenda delectus sequi in doloribus repellendus
-            accusamus. Officiis praesentium fuga accusantium.
-          </p>
-        </div>
-        <div className="card flex-shrink-0 w-full max-w-2xl shadow-2xl bg-base-100">
-          <Formik
-            initialValues={{
-              email: "",
-              password: "",
-            }}
-            validationSchema={schema}
-            onSubmit={(values) => {
-              handleLogin(values);
-            }}
-          >
-            <Form>
-              <div className="card-body">
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
-                  </label>
-                  <Field
-                    type="text"
-                    placeholder="email"
-                    name="email"
-                    className="input input-bordered"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    render={(msg) => (
-                      <label className="label text-[#c44444] text-[12px]">
-                        {msg}
+    <>
+      <div className="hero min-h-screen ">
+        <div className="hero-content flex-col lg:flex-row-reverse">
+          <div className="text-center lg:text-left">
+            <h1 className="text-5xl font-bold">Login now!</h1>
+            <p className="py-6">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Asperiores atque iste porro dicta, soluta id, recusandae deleniti
+              mollitia provident assumenda delectus sequi in doloribus
+              repellendus accusamus. Officiis praesentium fuga accusantium.
+            </p>
+          </div>
+          <div className="card flex-shrink-0 w-full max-w-2xl shadow-2xl bg-base-100">
+            <Formik
+              initialValues={{
+                email: "",
+                password: "",
+              }}
+              validationSchema={schema}
+              onSubmit={(values) => {
+                handleLogin(values);
+              }}
+            >
+              <Form>
+                <div className="card-body">
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Email</span>
+                    </label>
+                    <Field
+                      type="text"
+                      placeholder="email"
+                      name="email"
+                      className="input input-bordered"
+                    />
+                    <ErrorMessage
+                      name="email"
+                      render={(msg) => (
+                        <label className="label text-[#c44444] text-[12px]">
+                          {msg}
+                        </label>
+                      )}
+                    />
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Password</span>
+                    </label>
+                    <Field
+                      type="password"
+                      placeholder="password"
+                      name="password"
+                      className="input input-bordered"
+                    />
+                    <ErrorMessage
+                      name="password"
+                      render={(msg) => (
+                        <label className="label text-[#c44444] text-[12px]">
+                          {msg}
+                        </label>
+                      )}
+                    />
+                    <label className="label">
+                      <label
+                        htmlFor="forgetPassword"
+                        className="label-text-alt hover:text-bothColor cursor-pointer"
+                      >
+                        Forgot password?
                       </label>
-                    )}
-                  />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Password</span>
-                  </label>
-                  <Field
-                    type="password"
-                    placeholder="password"
-                    name="password"
-                    className="input input-bordered"
-                  />
-                  <ErrorMessage
-                    name="password"
-                    render={(msg) => (
-                      <label className="label text-[#c44444] text-[12px]">
-                        {msg}
-                      </label>
-                    )}
-                  />
-                  <label className="label">
-                    <span className="label-text-alt">Forgot password?</span>
-                    <Link
-                      href="signup"
-                      className="label-text-alt link link-hover"
-                    >
-                      SginUp?
-                    </Link>
-                  </label>
-                </div>
-                {isLoading ? (
-                  <button
-                    className="btn btn-primary loading"
-                    type="submit"
-                  ></button>
-                ) : (
-                  <>
-                    {error ? (
-                      <div className="flex justify-center items-center">
-                        <span className="label text-[#c44444] text-[16px]">
-                          {error?.data}
+                      <Link href="signup">
+                        <span className="label-text-alt link link-hover hover:text-bothColor">
+                          SginUp?
                         </span>
-                      </div>
-                    ) : null}
-                    <button className="btn btn-primary" type="submit">
-                      Login
-                    </button>
-                  </>
-                )}
-              </div>
-            </Form>
-          </Formik>
+                      </Link>
+                    </label>
+                  </div>
+                  {isLoading ? (
+                    <button
+                      className="btn glass loading"
+                      type="submit"
+                    ></button>
+                  ) : (
+                    <>
+                      {error ? (
+                        <div className="flex justify-center items-center">
+                          <span className="label text-[#c44444] text-[16px]">
+                            {error?.data}
+                          </span>
+                        </div>
+                      ) : null}
+                      <button className="btn glass" type="submit">
+                        Login
+                      </button>
+                    </>
+                  )}
+                </div>
+              </Form>
+            </Formik>
+          </div>
         </div>
       </div>
-    </div>
+      <Popup id="forgetPassword">
+        <>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Enter Your Email</span>
+            </label>
+            <label className="input-group">
+              <span>Email</span>
+              <input
+                type="text"
+                placeholder="info@site.com"
+                className="input w-full input-bordered"
+              />
+            </label>
+          </div>
+          <button className="btn glass btn-block my-[10px]" type="submit">
+            Submit
+          </button>
+        </>
+      </Popup>
+    </>
   );
 };
 

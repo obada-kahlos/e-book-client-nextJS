@@ -64,24 +64,25 @@ body {
   animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* wrapper */
 @media (min-width: 1200px) {
   div.wrapper {
     width: 1200px;
     margin: 0px auto;
-    padding: 30px 0px;
   }
 }
 @media (max-width: 768px) {
   div.wrapper {
     width: 95%;
     margin: 0px auto;
-    padding: 80px 0px;
   }
 }
 
 div.about-wrapper {
   transition: all 2s ease-in;
 }
-div.about-wrapper:hover {
-  transform: translateY(-20px);
+
+/* custom button  */
+.btn .custom {
+  @apply border border-bothColor hover:bg-bothColor dark:text-[#fff] text-[#333] hover:text-[#fff];
 }

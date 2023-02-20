@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
 import { useSginUpMutation } from "@/api/register/api";
+import { signupData } from "./data";
 const Signup = () => {
   const schema = yup.object().shape({
     email: yup.string().required("This field is required"),
@@ -80,7 +81,7 @@ const Signup = () => {
               initialValues={{
                 firstName: "",
                 lastName: "",
-                gender: "",
+                gender: "Male",
                 email: "",
                 password: "",
               }}
@@ -93,70 +94,30 @@ const Signup = () => {
               <Form>
                 <div className="card-body">
                   <div className="md:grid block grid-cols-12 gap-1">
-                    <div className="md:col-span-6">
-                      <div className="form-control">
-                        <label className="label">
-                          <span className="label-text">First Name</span>
-                        </label>
-                        <Field
-                          type="text"
-                          placeholder="First Name"
-                          name="firstName"
-                          className="input input-bordered input-md"
-                        />
-                        <ErrorMessage
-                          name="firstName"
-                          render={(msg) => (
-                            <label className="label text-[#c44444] text-[12px]">
-                              {msg}
-                            </label>
-                          )}
-                        />
+                    {signupData.map((item, key) => (
+                      <div className={`${item.grid}`} key={key}>
+                        <div className="form-control">
+                          <label className="label">
+                            <span className="label-text">{item.label}</span>
+                          </label>
+                          <Field
+                            type={item.type}
+                            placeholder={item.placeholder}
+                            name={item.name}
+                            className="input input-bordered input-md"
+                          />
+                          <ErrorMessage
+                            name={item.name}
+                            render={(msg) => (
+                              <label className="label text-[#c44444] text-[12px]">
+                                {msg}
+                              </label>
+                            )}
+                          />
+                        </div>
                       </div>
-                    </div>
+                    ))}
 
-                    <div className="md:col-span-6">
-                      <div className="form-control">
-                        <label className="label">
-                          <span className="label-text">Last Name</span>
-                        </label>
-                        <Field
-                          type="text"
-                          placeholder="Last Name"
-                          name="lastName"
-                          className="input input-bordered input-md"
-                        />
-                        <ErrorMessage
-                          name="lastName"
-                          render={(msg) => (
-                            <label className="label text-[#c44444] text-[12px]">
-                              {msg}
-                            </label>
-                          )}
-                        />
-                      </div>
-                    </div>
-                    <div className="md:col-span-12">
-                      <div className="form-control">
-                        <label className="label">
-                          <span className="label-text">Email</span>
-                        </label>
-                        <Field
-                          type="text"
-                          placeholder="Email"
-                          name="email"
-                          className="input input-bordered input-md"
-                        />
-                        <ErrorMessage
-                          name="email"
-                          render={(msg) => (
-                            <label className="label text-[#c44444] text-[12px]">
-                              {msg}
-                            </label>
-                          )}
-                        />
-                      </div>
-                    </div>
                     <div className="md:col-span-6">
                       <div className="form-control">
                         <label className="label">
@@ -178,6 +139,7 @@ const Signup = () => {
                         />
                       </div>
                     </div>
+
                     <div className="md:col-span-6">
                       <div className="form-control">
                         <label className="label">
@@ -239,7 +201,7 @@ const Signup = () => {
                   <div className="form-control mt-4">
                     {isLoading ? (
                       <button
-                        className="btn btn-primary loading"
+                        className="btn glass loading"
                         type="submit"
                       ></button>
                     ) : (
@@ -251,7 +213,7 @@ const Signup = () => {
                             </span>
                           </div>
                         ) : null}
-                        <button className="btn btn-primary" type="submit">
+                        <button className="btn glass" type="submit">
                           SignUp
                         </button>
                       </>
