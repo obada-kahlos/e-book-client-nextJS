@@ -52,7 +52,6 @@ export default function Home() {
       icon: <HiOutlineArrowDownTray />,
       title: "Downloads",
       value: "31K",
-      desc: "Jan 1st - Feb 1st",
       dataAos: "fade-up",
       dataAosDuration: "1200",
       dataAosOffset: "30",
@@ -61,7 +60,6 @@ export default function Home() {
       icon: <IoPersonAddOutline />,
       title: "New Users",
       value: "4,200",
-      desc: "↗︎ 400 (22%)",
       dataAos: "fade-up",
       dataAosDuration: "1400",
       dataAosOffset: "30",
@@ -70,7 +68,6 @@ export default function Home() {
       icon: <IoFolderOutline />,
       title: "New Registers",
       value: "1,200",
-      desc: "↘︎ 90 (14%)",
       dataAos: "fade-up",
       dataAosDuration: "1600",
       dataAosOffset: "30",
@@ -79,7 +76,6 @@ export default function Home() {
       icon: <HiOutlineArrowDownTray />,
       title: "Downloads",
       value: "31K",
-      desc: "Jan 1st - Feb 1st",
       dataAos: "fade-up",
       dataAosDuration: "1800",
       dataAosOffset: "30",
@@ -181,12 +177,11 @@ export default function Home() {
                 data-aos-duration={item.dataAosDuration}
                 data-aos-offset={item.dataAosOffset}
               >
-                <div className="stat-figure text-primary  text-[30px]">
+                <div className="stat-figure text-[#fff]  text-[30px]">
                   {item.icon}
                 </div>
                 <div className="stat-title text-[#fff]">{item.title}</div>
-                <div className="stat-value text-primary">{item.value}</div>
-                <div className="stat-desc text-[#fff]">{item.desc}</div>
+                <div className="stat-value text-bothColor">{item.value}</div>
               </div>
             </div>
           ))}
