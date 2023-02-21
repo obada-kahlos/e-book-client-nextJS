@@ -15,6 +15,7 @@ const Team: React.FC<teamProps> = (props) => {
     <a
       href={props.href}
       target="_blank"
+      rel="noreferrer"
       className="transition-all hover:dark:shadow-blackShadow py-[20px] flex flex-col items-center justify-center text-center cursor-pointer"
     >
       <div className="lg:w-[300px] lg:h-[300px] w-[240px] h-[240px] rounded-full overflow-hidden border-[5px] border-bothColor">
