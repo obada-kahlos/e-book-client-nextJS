@@ -30,7 +30,7 @@ const index = () => {
 
       <div className="wrapper md:py-[120px] py-[20px] grid grid-cols-12 gap-8 items-center justify-center">
         {teamData.map((item, key) => (
-          <div className="lg:col-span-6 col-span-12">
+          <div className="lg:col-span-6 col-span-12" key={key}>
             <Team
               name={item.name}
               deec={item.deec}
