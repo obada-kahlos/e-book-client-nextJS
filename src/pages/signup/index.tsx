@@ -4,8 +4,31 @@ import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
 import { useSginUpMutation } from "@/api/register/api";
-import { signupData } from "./data";
 const Signup = () => {
+  const signupData = [
+    {
+      label: "First Name",
+      type: "text",
+      name: "firstName",
+      placeholder: "First Name",
+      grid: "md:col-span-6",
+    },
+    {
+      label: "Last Name",
+      type: "text",
+      name: "lastName",
+      placeholder: "Last Name",
+      grid: "md:col-span-6",
+    },
+    {
+      label: "Email",
+      type: "email",
+      name: "email",
+      placeholder: "email",
+      grid: "md:col-span-12",
+    },
+  ];
+
   const schema = yup.object().shape({
     email: yup.string().required("This field is required"),
     firstName: yup.string().required("This field is required"),
