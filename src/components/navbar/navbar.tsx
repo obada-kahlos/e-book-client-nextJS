@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" navbar md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md bg-dark-PrimaryColour  text-[white] z-[999]">
+    <div className="navbar backdrop-blur-lg  md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md  z-[999]">
       <div>
         {/* <label
           className="swap swap-rotate"
@@ -53,7 +53,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-start text-[#fff]">
         <Link
-          href="/"
+          href="/landing"
           className="btn btn-ghost normal-case text-xl text-bothColor"
           style={{
             fontFamily: lora.style.fontFamily,
@@ -63,19 +63,13 @@ const Navbar = () => {
         </Link>
       </div>
       {token !== null ? (
-        <div className="navbar-center text-[#fff] md:block hidden">
+        <div className="navbar-center  md:block hidden">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Item 1</a>
+              <Link href="/team">Team</Link>
             </li>
             <li>
-              <a>Item 2</a>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-            <li>
-              <a>Item 4</a>
+              <Link href='/landing'>Products</Link>
             </li>
           </ul>
         </div>
@@ -118,20 +112,17 @@ const Navbar = () => {
               </a>
               <ul className="p-2 bg-base-100">
                 <li>
-                  <a>Item 1</a>
+                  <Link href="/team">Team</Link>
                 </li>
                 <li>
-                  <a>Item 2</a>
+                  <Link href="landing">Products</Link>
                 </li>
               </ul>
             </li>
           </ul>
           <div className="flex md:gap-4 gap-1">
             <div className="dropdown dropdown-end">
-              <label
-                tabIndex={0}
-                className="btn text-white btn-ghost btn-circle"
-              >
+              <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <div className="indicator">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +159,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  <img src="/images/photo_2021-11-02_14-36-19.jpg" />
+                  <img src="/images/obada.jpg" alt="User-Image" />
                 </div>
               </label>
               <ul

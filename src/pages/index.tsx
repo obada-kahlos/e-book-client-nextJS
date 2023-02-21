@@ -119,12 +119,14 @@ export default function Home() {
             <div className="flex items-stretch gap-6 wrraper-animation-forth">
               <div className="self-end mb-[60px] cursor-pointer">
                 <img
+                  alt={"image"}
                   src="/images/رواية-ليطمئن-قلبي (eloualid-book.com).jpg"
                   className="max-w-sm rounded-lg shadow-2xl"
                 />
               </div>
               <div className="self-end cursor-pointer lg:block hidden">
                 <img
+                  alt={"image"}
                   src="/images/2d8478184f3843cc96f277296fcf3966.png.jpg"
                   className="max-w-sm rounded-lg shadow-2xl"
                 />
