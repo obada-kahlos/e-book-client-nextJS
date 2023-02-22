@@ -5,7 +5,7 @@ module.exports = {
     darkMode: "class",
     extend: {
       colors: {
-        bothColor: "#55cc16",
+        bothColor: "#0d89d4",
         dark: {
           bgColor: "#191919",
           PrimaryColour: "#301E67",
