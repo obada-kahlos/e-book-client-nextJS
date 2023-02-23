@@ -90,8 +90,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="wrapper md:py-[30px] py-[80px]">
-        <div className="md:py-[20px] hero min-h-screen lg:py-[0px]">
-          <div className="hero-content lg:flex-row flex-col  h-screen">
+        <div className="md:py-[20px] hero min-h-[85vh] lg:py-[0px]">
+          <div className="hero-content lg:flex-row flex-col">
             <div className="md:text-left text-center">
               <h1
                 className={`wrraper-animation-first md:text-5xl text-4xl font-bold lg:w-8/12`}

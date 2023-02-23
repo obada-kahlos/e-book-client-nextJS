@@ -2,6 +2,7 @@ import React from "react";
 import { IoCartOutline } from "react-icons/io5";
 import ImageComponent from "@/components/img/image";
 import TextInfo from "@/components/text-info/text-info";
+import SectionTitle from "@/components/section-title/section-title";
 const index = () => {
   return (
     <div className="wrapper">
@@ -36,6 +37,9 @@ const index = () => {
             <TextInfo title="Quantity" desc="6" />
           </div>
         </div>
+      </div>
+      <div>
+        <SectionTitle title="Book You May Like It" />
       </div>
     </div>
   );

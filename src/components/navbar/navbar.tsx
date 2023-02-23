@@ -130,13 +130,30 @@ const Navbar = () => {
               </a>
               <ul className="p-2 bg-base-100">
                 <li>
-                  <Link href="/team">Team</Link>
+                  <Link
+                    className={router.pathname == "/team" ? "active" : ""}
+                    href="/team"
+                  >
+                    Team
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/product-info">Product-info</Link>
+                  <Link
+                    className={router.pathname == "/landing" ? "active" : ""}
+                    href="/landing"
+                  >
+                    Products
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/landing">Products</Link>
+                  <Link
+                    className={
+                      router.pathname == "/product-info" ? "active" : ""
+                    }
+                    href="/product-info"
+                  >
+                    Product-info
+                  </Link>
                 </li>
               </ul>
             </li>

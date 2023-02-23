@@ -1,3 +1,4 @@
+import Card from "@/components/card/card";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -23,8 +24,43 @@ const Landing = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="h-[600px] w-full flex justify-center items-center">
-        <h1 className="text-[70px] font-mono"> Hi Landing.! </h1>
+      <div className="wrapper py-[40px] grid grid-cols-12 gap-8">
+        <div className="lg:col-span-6 col-span-12">
+          <Card
+            bade="New"
+            desc="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, reiciendis?"
+            img="/images/book-one.jpg"
+            price="30000$"
+            title="Book One"
+          />
+        </div>
+        <div className="lg:col-span-6 col-span-12">
+          <Card
+            bade="New"
+            desc="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, reiciendis?"
+            img="/images/book-one.jpg"
+            price="30000$"
+            title="Book One"
+          />
+        </div>
+        <div className="lg:col-span-6 col-span-12">
+          <Card
+            bade="New"
+            desc="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, reiciendis?"
+            img="/images/book-one.jpg"
+            price="30000$"
+            title="Book One"
+          />
+        </div>
+        <div className="lg:col-span-6 col-span-12">
+          <Card
+            bade="New"
+            desc="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, reiciendis?"
+            img="/images/book-one.jpg"
+            price="30000$"
+            title="Book One"
+          />
+        </div>
       </div>
     </>
   );

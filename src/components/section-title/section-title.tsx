@@ -12,7 +12,7 @@ const lora = Lora({
 const SectionTitle: React.FC<sectionTitle> = (props) => {
   return (
     <h2
-      className="text-center mb-[20px] capitalize md:text-[60px] text-[26px] dark:text-dark-headingColor text-light-[#222]"
+      className="text-center first-letter:text-bothColor mb-[20px] capitalize md:text-[60px] text-[26px] dark:text-dark-headingColor text-light-[#222]"
       style={{
         fontFamily: lora.style.fontFamily,
       }}
