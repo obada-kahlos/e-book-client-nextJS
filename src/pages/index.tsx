@@ -120,7 +120,7 @@ export default function Home() {
               <div className="self-end mb-[60px] cursor-pointer">
                 <img
                   alt={"image"}
-                  src="/images/رواية-ليطمئن-قلبي (eloualid-book.com).jpg"
+                  src="/images/book-one.jpg"
                   className="max-w-sm rounded-lg shadow-2xl"
                 />
               </div>

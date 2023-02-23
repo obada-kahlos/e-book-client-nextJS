@@ -28,7 +28,7 @@ const index = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="wrapper md:py-[120px] py-[20px] grid grid-cols-12 gap-8 items-center justify-center">
+      <div className="wrapper md:py-[60px] py-[20px] grid grid-cols-12 gap-8 items-center justify-center">
         {teamData.map((item, key) => (
           <div className="lg:col-span-6 col-span-12" key={key}>
             <Team
