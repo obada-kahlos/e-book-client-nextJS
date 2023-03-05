@@ -33,16 +33,16 @@ const MainPage = () => {
     },
   ];
 
-  const getToken =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("e-book") as any)
-      : null;
-  const router = useRouter();
-  useEffect(() => {
-    if (!getToken) {
-      router.push("login");
-    }
-  }, [getToken]);
+  // const getToken =
+  //   typeof window !== "undefined"
+  //     ? JSON.parse(localStorage.getItem("e-book") as any)
+  //     : null;
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if (!getToken) {
+  //     router.push("login");
+  //   }
+  // }, [getToken]);
 
   return (
     <>
@@ -54,15 +54,16 @@ const MainPage = () => {
       </Head>
       <div className="wrapper flex justify-center items-center min-h-[350px]">
         <div className="text-center">
-          <div className="max-w-md">
+          <div className="max-w-2xl">
             <h1 className={`md:text-5xl text-4xl font-bold lg:w-12/12`}>
               Best Place to Find Your Favorit
               <span className="text-bothColor"> Books.</span>
             </h1>
             <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+              nemo totam delectus ut deleniti, accusamus illum magni, facilis
+              libero dolore vero quae. Sint, impedit beatae similique distinctio
+              nihil recusandae. Itaque!
             </p>
             <button className="btn btn-primary">Get Started</button>
           </div>
