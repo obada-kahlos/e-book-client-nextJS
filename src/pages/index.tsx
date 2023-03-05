@@ -96,7 +96,7 @@ export default function Home() {
               <h1
                 className={`wrraper-animation-first md:text-5xl text-4xl font-bold lg:w-8/12`}
               >
-                Best Place to Find Your Favorit{" "}
+                Best Place to Find Your Favorit
                 <span className="text-bothColor">Books.</span>
               </h1>
               <p className="wrraper-animation-secound uppercase py-6">

@@ -53,7 +53,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-start text-[#fff]">
         <Link
-          href="/landing"
+          href="/main-page"
           className="btn btn-ghost normal-case text-xl text-bothColor"
           style={{
             fontFamily: lora.style.fontFamily,
@@ -75,10 +75,10 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                className={router.pathname == "/landing" ? "active" : ""}
-                href="/landing"
+                className={router.pathname == "/main-page" ? "active" : ""}
+                href="/main-page"
               >
-                Products
+                Home
               </Link>
             </li>
             <li>
@@ -139,10 +139,10 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
-                    className={router.pathname == "/landing" ? "active" : ""}
-                    href="/landing"
+                    className={router.pathname == "/main-page" ? "active" : ""}
+                    href="/main-page"
                   >
-                    Products
+                    Cart Home
                   </Link>
                 </li>
                 <li>
@@ -187,9 +187,9 @@ const Navbar = () => {
                   <span className="font-bold text-lg">8 Items</span>
                   <span className="text-info">Subtotal: $999</span>
                   <div className="card-actions">
-                    <button className="btn btn-primary btn-block">
+                    <Link href={"/cart"} className="btn btn-primary btn-block">
                       View cart
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
