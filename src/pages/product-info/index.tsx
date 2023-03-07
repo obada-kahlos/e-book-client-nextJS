@@ -3,7 +3,36 @@ import { IoCartOutline } from "react-icons/io5";
 import ImageComponent from "@/components/img/image";
 import TextInfo from "@/components/text-info/text-info";
 import SectionTitle from "@/components/section-title/section-title";
+import Card from "@/components/card/card";
+import Link from "next/link";
 const index = () => {
+  const books = [
+    {
+      img: "/images/book-one.jpg",
+      title: "Book's Name.",
+      price: "12300$",
+    },
+    {
+      img: "/images/2d8478184f3843cc96f277296fcf3966.png.jpg",
+      title: "Book's Name.",
+      price: "12300$",
+    },
+    {
+      img: "/images/book-one.jpg",
+      title: "Book's Name.",
+      price: "12300$",
+    },
+    {
+      img: "/images/2d8478184f3843cc96f277296fcf3966.png.jpg",
+      title: "Book's Name.",
+      price: "12300$",
+    },
+    {
+      img: "/images/book-one.jpg",
+      title: "Book's Name.",
+      price: "12300$",
+    },
+  ];
   return (
     <div className="wrapper">
       <div className="dark:shadow-blackShadow my-[30px] rounded-3xl shadow-xl py-[30px] md:px-[40px] px-10px">
@@ -34,12 +63,33 @@ const index = () => {
               quaerat, atque aliquid optio pariatur illo corporis quisquam.
             </p>
             <TextInfo title="Price" desc="12000$" />
-            <TextInfo title="Quantity" desc="6" />
           </div>
         </div>
       </div>
-      <div>
+      <div className="wrapper py-[40px]">
         <SectionTitle title="Book You May Like It" />
+        <div className="">
+          <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
+            Gener Book.
+          </h2>
+          <div className="flex justify-between items-center flex-wrap ">
+            {books.map((item, key) => (
+              <div className="" key={key}>
+                <Card
+                  img={item.img}
+                  title={item.title}
+                  price={item.price}
+                  href="/product-info"
+                />
+              </div>
+            ))}
+          </div>
+          <Link href="/products">
+            <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+              View All
+            </h3>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -106,3 +106,67 @@ div.about-wrapper {
 .btn .custom {
   @apply border border-bothColor hover:bg-bothColor dark:text-[#fff] text-[#333] hover:text-[#fff];
 }
+
+/* Time Line CSS */
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  background-color: #0d89d4;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+  border-radius: 10px;
+}
+
+.container-time::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -12px;
+  background-color: #fff;
+  border: 4px solid #0d89d4;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  left: 50%;
+}
+
+.right::after {
+  left: -42px;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline::after {
+    left: 30px;
+  }
+  .container-time {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+  .right::after {
+    left: 17px;
+  }
+  .right {
+    left: 0%;
+  }
+  .container-time::after {
+    left: 18px;
+  }
+}

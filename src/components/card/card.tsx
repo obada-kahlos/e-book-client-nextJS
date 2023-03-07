@@ -28,7 +28,9 @@ const Card: React.FC<cardProps> = (props) => {
         {" "}
         <strong>{props.price}</strong>{" "}
       </p>
-      <Link href={props.href} className="btn dark:glass btn-primary btn-block ">
+      <Link
+        href={props.href}
+        className="btn dark:glass btn-primary btn-block my-[10px]">
         Viwe Book
       </Link>
     </>

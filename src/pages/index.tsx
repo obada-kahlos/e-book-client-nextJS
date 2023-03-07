@@ -94,10 +94,9 @@ export default function Home() {
           <div className="hero-content lg:flex-row flex-col">
             <div className="md:text-left text-center">
               <h1
-                className={`wrraper-animation-first md:text-5xl text-4xl font-bold lg:w-8/12`}
-              >
+                className={`wrraper-animation-first md:text-5xl text-4xl font-bold lg:w-8/12`}>
                 Best Place to Find Your Favorit
-                <span className="text-bothColor">Books.</span>
+                <span className="text-bothColor"> Books.</span>
               </h1>
               <p className="wrraper-animation-secound uppercase py-6">
                 read 1000 books and walk 1000 miles
@@ -136,6 +135,74 @@ export default function Home() {
         </div>
       </div>
       <div className="divider"></div>
+
+      <div className="wrapper">
+        <SectionTitle title="Steps To Get Your Book" />
+        <div className="timeline">
+          <div className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] left">
+            <h3 className="text-[30px] text-bothColor"> .1 Register</h3>
+            <p className="text-[18px] md:w-12/12 my-[12px]">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Distinctio magnam quaerat saepe impedit dolore?
+            </p>
+            <div>
+              <img
+                src="/images/signin.svg"
+                alt=""
+                className="md:w-[400px] w-full mt-[20px]"
+              />
+            </div>
+          </div>
+          <div className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] md:ml-[30px] right">
+            <div className="">
+              <h3 className="text-[30px] text-bothColor">.2 Fined Your Book</h3>
+              <p className="text-[18px] md:w-12/12 my-[12px]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Distinctio magnam quaerat saepe impedit dolore?
+              </p>
+              <div className="">
+                <img
+                  src="/images/fiend-your-book.svg"
+                  alt=""
+                  className="md:w-[400px] w-full mt-[20px]"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] left">
+            <h3 className="text-[30px] text-bothColor"> .3 Add Too Cart</h3>
+            <p className="text-[18px] md:w-12/12 my-[12px]">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Distinctio magnam quaerat saepe impedit dolore?
+            </p>
+            <div>
+              <img
+                src="/images/cart.svg"
+                alt=""
+                className="md:w-[400px] w-full mt-[20px]"
+              />
+            </div>
+          </div>
+          <div className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] md:ml-[30px] right">
+            <div className="">
+              <h3 className="text-[30px] text-bothColor">.4 CheckOut</h3>
+              <p className="md:w-[400px] w-full mt-[20px]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Distinctio magnam quaerat saepe impedit dolore?
+              </p>
+              <div className="">
+                <img
+                  src="/images/checkout.svg"
+                  alt=""
+                  className="md:w-[400px]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="divider"></div>
       <div className="wrapper">
         <SectionTitle title="What do we offer" />
         <div className="grid grid-cols-12 gap-6 ">
@@ -148,15 +215,13 @@ export default function Home() {
               data-aos={item.dataAos}
               data-aos-duration={item.dataAosDuration}
               data-aos-offset={item.dataAosOffset}
-              key={key}
-            >
+              key={key}>
               <span className="text-[80px] mb-[20px]">{item.icon}</span>
               <h3
                 className="text-[40px] text-bothColor"
                 style={{
                   fontFamily: lora.style.fontFamily,
-                }}
-              >
+                }}>
                 {item.title}
               </h3>
               <p className="text-center mt-[20px]">{item.text}</p>
@@ -171,14 +236,12 @@ export default function Home() {
           {StatsData.map((item, key) => (
             <div
               key={key}
-              className="lg:col-span-3 md:col-span-6 col-span-12 flex justify-center flex-col gap-2 items-center"
-            >
+              className="lg:col-span-3 md:col-span-6 col-span-12 flex justify-center flex-col gap-2 items-center">
               <div
                 className="stat"
                 data-aos={item.dataAos}
                 data-aos-duration={item.dataAosDuration}
-                data-aos-offset={item.dataAosOffset}
-              >
+                data-aos-offset={item.dataAosOffset}>
                 <div className="stat-figure text-[#fff]  text-[30px]">
                   {item.icon}
                 </div>
@@ -190,9 +253,6 @@ export default function Home() {
         </div>
       </div>
       <div className="divider"></div>
-      <div className="wrapper my-[30px]">
-        <SectionTitle title="" />
-      </div>
     </>
   );
 }

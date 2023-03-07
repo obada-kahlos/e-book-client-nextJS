@@ -8,6 +8,9 @@ const lora = Lora({
   weight: "700",
   subsets: ["latin"],
 });
+
+import { navbarData } from "@/data/navbar/navbar";
+
 const Navbar = () => {
   const router = useRouter();
   const getToken =
@@ -57,38 +60,22 @@ const Navbar = () => {
           className="btn btn-ghost normal-case text-xl text-bothColor"
           style={{
             fontFamily: lora.style.fontFamily,
-          }}
-        >
-          BookStore
+          }}>
+          SAFA7AT
         </Link>
       </div>
       {token !== null ? (
         <div className="navbar-center  md:block hidden">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link
-                className={router.pathname == "/team" ? "active" : ""}
-                href="/team"
-              >
-                Team
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={router.pathname == "/main-page" ? "active" : ""}
-                href="/main-page"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={router.pathname == "/product-info" ? "active" : ""}
-                href="/product-info"
-              >
-                Product-info
-              </Link>
-            </li>
+            {navbarData.map((item, key) => (
+              <li key={key} className="min-w-[100px]">
+                <Link
+                  className={router.pathname == item.href ? "active" : ""}
+                  href={item.href}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       ) : null}
@@ -123,38 +110,20 @@ const Navbar = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
-                  viewBox="0 0 24 24"
-                >
+                  viewBox="0 0 24 24">
                   <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                 </svg>
               </a>
               <ul className="p-2 bg-base-100">
-                <li>
-                  <Link
-                    className={router.pathname == "/team" ? "active" : ""}
-                    href="/team"
-                  >
-                    Team
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className={router.pathname == "/main-page" ? "active" : ""}
-                    href="/main-page"
-                  >
-                    Cart Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className={
-                      router.pathname == "/product-info" ? "active" : ""
-                    }
-                    href="/product-info"
-                  >
-                    Product-info
-                  </Link>
-                </li>
+                {navbarData.map((item, key) => (
+                  <li key={key} className="min-w-[100px]">
+                    <Link
+                      className={router.pathname == item.href ? "active" : ""}
+                      href={item.href}>
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </li>
           </ul>
@@ -167,8 +136,7 @@ const Navbar = () => {
                     className="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
+                    stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -181,8 +149,7 @@ const Navbar = () => {
               </label>
               <div
                 tabIndex={0}
-                className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
-              >
+                className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                 <div className="card-body">
                   <span className="font-bold text-lg">8 Items</span>
                   <span className="text-info">Subtotal: $999</span>
@@ -202,8 +169,7 @@ const Navbar = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-              >
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                 <li>
                   <a className="justify-between">
                     Profile
