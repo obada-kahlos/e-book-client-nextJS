@@ -14,6 +14,7 @@ import {
 import { HiOutlineArrowDownTray } from "react-icons/hi2";
 
 import SectionTitle from "@/components/section-title/section-title";
+import ContactUs from "@/components/contact-us/contact-us";
 
 const lora = Lora({
   weight: "700",
@@ -54,7 +55,7 @@ export default function Home() {
       value: "31K",
       dataAos: "fade-up",
       dataAosDuration: "1200",
-      dataAosOffset: "30",
+      dataAosOffset: "70",
     },
     {
       icon: <IoPersonAddOutline />,
@@ -62,7 +63,7 @@ export default function Home() {
       value: "4,200",
       dataAos: "fade-up",
       dataAosDuration: "1400",
-      dataAosOffset: "30",
+      dataAosOffset: "70",
     },
     {
       icon: <IoFolderOutline />,
@@ -70,7 +71,7 @@ export default function Home() {
       value: "1,200",
       dataAos: "fade-up",
       dataAosDuration: "1600",
-      dataAosOffset: "30",
+      dataAosOffset: "70",
     },
     {
       icon: <HiOutlineArrowDownTray />,
@@ -78,7 +79,7 @@ export default function Home() {
       value: "31K",
       dataAos: "fade-up",
       dataAosDuration: "1800",
-      dataAosOffset: "30",
+      dataAosOffset: "70",
     },
   ];
   return (
@@ -89,7 +90,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="wrapper md:py-[30px] py-[80px]">
+      <div className="wrapper md:py-[30px] py-[10px]">
         <div className="md:py-[20px] hero min-h-[85vh] lg:py-[0px]">
           <div className="hero-content lg:flex-row flex-col">
             <div className="md:text-left text-center">
@@ -109,7 +110,7 @@ export default function Home() {
                   similique distinctio nihil recusandae. Itaque!
                 </p>
                 <Link href="login">
-                  <button className="btn md:w-10/12 w-full btn-primary mt-[10px]">
+                  <button className="btn md:w-10/12 w-6/12 btn-primary mt-[10px]">
                     Get Started
                   </button>
                 </Link>
@@ -142,7 +143,7 @@ export default function Home() {
           <div
             className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] left"
             data-aos={"fade-up"}
-            data-aos-duration={"1600"}
+            data-aos-duration={"1200"}
             data-aos-offset={"180"}>
             <h3 className="text-[30px] text-bothColor"> .1 Register</h3>
             <p className="text-[18px] md:w-12/12 my-[12px]">
@@ -160,7 +161,7 @@ export default function Home() {
           <div
             className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] md:ml-[30px] right"
             data-aos={"fade-up"}
-            data-aos-duration={"1600"}
+            data-aos-duration={"1200"}
             data-aos-offset={"180"}>
             <div className="">
               <h3 className="text-[30px] text-bothColor">.2 Fined Your Book</h3>
@@ -180,7 +181,7 @@ export default function Home() {
           <div
             className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] left"
             data-aos={"fade-up"}
-            data-aos-duration={"1600"}
+            data-aos-duration={"1200"}
             data-aos-offset={"180"}>
             <h3 className="text-[30px] text-bothColor"> .3 Add Too Cart</h3>
             <p className="text-[18px] md:w-12/12 my-[12px]">
@@ -198,7 +199,7 @@ export default function Home() {
           <div
             className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] md:ml-[30px] right"
             data-aos={"fade-up"}
-            data-aos-duration={"1600"}
+            data-aos-duration={"1200"}
             data-aos-offset={"180"}>
             <div className="">
               <h3 className="text-[30px] text-bothColor">.4 CheckOut</h3>
@@ -217,9 +218,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       <div className="divider"></div>
-      <div className="wrapper">
+
+      {/* <div className="wrapper">
         <SectionTitle title="What do we offer" />
         <div className="grid grid-cols-12 gap-6 ">
           {AboutData.map((item, key) => (
@@ -245,10 +246,11 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <div className="divider"></div>
-      <div className="my-[30px]">
+      <div className="divider"></div> */}
+
+      <div className="my-[30px] ">
         <SectionTitle title="Stats" />
-        <div className="wrapper stats overflow-y-hidden bg-[#2A303C] rounded-2xl grid grid-cols-12 gap-4">
+        <div className="overflow-y-hidden py-[80px] bg-[#2A303C] stats rounded-none  grid grid-cols-12 gap-4">
           {StatsData.map((item, key) => (
             <div
               key={key}
@@ -269,6 +271,11 @@ export default function Home() {
         </div>
       </div>
       <div className="divider"></div>
+
+      <div className="wrapper my-[30px] py-[30px] lg:px-0 px-8">
+        <SectionTitle title="Contact us" />
+        <ContactUs />
+      </div>
     </>
   );
 }
