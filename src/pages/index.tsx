@@ -140,30 +140,31 @@ export default function Home() {
       <div className="wrapper">
         <SectionTitle title="Steps To Get Your Book" />
         <div className="timeline">
-          <div
-            className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] left"
-            data-aos={"fade-up"}
-            data-aos-duration={"1200"}
-            data-aos-offset={"180"}>
-            <h3 className="text-[30px] text-bothColor"> .1 Register</h3>
-            <p className="text-[18px] md:w-12/12 my-[12px]">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Distinctio magnam quaerat saepe impedit dolore?
-            </p>
-            <div>
-              <img
-                src="/images/signin.svg"
-                alt=""
-                className="md:w-[400px] w-full mt-[20px]"
-              />
+          <div className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] left">
+            <div
+              data-aos={"fade-up-right"}
+              data-aos-duration={"1200"}
+              data-aos-offset={"180"}>
+              <h3 className="text-[30px] text-bothColor"> .1 Register</h3>
+              <p className="text-[18px] md:w-12/12 my-[12px]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Distinctio magnam quaerat saepe impedit dolore?
+              </p>
+              <div>
+                <img
+                  src="/images/signin.svg"
+                  alt=""
+                  className="md:w-[400px] w-full mt-[20px]"
+                />
+              </div>
             </div>
           </div>
-          <div
-            className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] md:ml-[30px] right"
-            data-aos={"fade-up"}
-            data-aos-duration={"1200"}
-            data-aos-offset={"180"}>
-            <div className="">
+          <div className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] md:ml-[30px] right">
+            <div
+              className=""
+              data-aos={"fade-up-left"}
+              data-aos-duration={"1200"}
+              data-aos-offset={"180"}>
               <h3 className="text-[30px] text-bothColor">.2 Fined Your Book</h3>
               <p className="text-[18px] md:w-12/12 my-[12px]">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -178,30 +179,31 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div
-            className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] left"
-            data-aos={"fade-up"}
-            data-aos-duration={"1200"}
-            data-aos-offset={"180"}>
-            <h3 className="text-[30px] text-bothColor"> .3 Add Too Cart</h3>
-            <p className="text-[18px] md:w-12/12 my-[12px]">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Distinctio magnam quaerat saepe impedit dolore?
-            </p>
-            <div>
-              <img
-                src="/images/cart.svg"
-                alt=""
-                className="md:w-[400px] w-full mt-[20px]"
-              />
+          <div className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] left">
+            <div
+              data-aos={"fade-up-right"}
+              data-aos-duration={"1200"}
+              data-aos-offset={"180"}>
+              <h3 className="text-[30px] text-bothColor"> .3 Add Too Cart</h3>
+              <p className="text-[18px] md:w-12/12 my-[12px]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Distinctio magnam quaerat saepe impedit dolore?
+              </p>
+              <div>
+                <img
+                  src="/images/cart.svg"
+                  alt=""
+                  className="md:w-[400px] w-full mt-[20px]"
+                />
+              </div>
             </div>
           </div>
-          <div
-            className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] md:ml-[30px] right"
-            data-aos={"fade-up"}
-            data-aos-duration={"1200"}
-            data-aos-offset={"180"}>
-            <div className="">
+          <div className="container-time mb-[20px] relative w-6/12 px-[20px] py-[10px] md:ml-[30px] right">
+            <div
+              className=""
+              data-aos={"fade-up-left"}
+              data-aos-duration={"1200"}
+              data-aos-offset={"180"}>
               <h3 className="text-[30px] text-bothColor">.4 CheckOut</h3>
               <p className="md:w-[400px] w-full mt-[20px]">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -272,7 +274,11 @@ export default function Home() {
       </div>
       <div className="divider"></div>
 
-      <div className="wrapper my-[30px] py-[30px] lg:px-0 px-8">
+      <div
+        className="wrapper my-[30px] py-[30px] lg:px-0 px-8"
+        data-aos={"fade-up"}
+        data-aos-duration={"1200"}
+        data-aos-offset={"180"}>
         <SectionTitle title="Contact us" />
         <ContactUs />
       </div>

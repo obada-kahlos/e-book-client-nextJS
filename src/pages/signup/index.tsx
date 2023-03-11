@@ -1,27 +1,34 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
-import { useSginUpMutation } from "@/api/register/api";
+import { useSignUpMutation } from "@/api/register/api";
+
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import { E164Number } from "libphonenumber-js/types";
+
 const Signup = () => {
+  const [phone, setPhone] = useState<E164Number | undefined>();
+
   const signupData = [
     {
-      label: "First Name",
+      label: "First Name*",
       type: "text",
       name: "firstName",
       placeholder: "First Name",
       grid: "md:col-span-6",
     },
     {
-      label: "Last Name",
+      label: "Last Name*",
       type: "text",
       name: "lastName",
       placeholder: "Last Name",
       grid: "md:col-span-6",
     },
     {
-      label: "Email",
+      label: "Email*",
       type: "email",
       name: "email",
       placeholder: "email",
@@ -34,6 +41,7 @@ const Signup = () => {
     firstName: yup.string().required("This field is required"),
     lastName: yup.string().required("This field is required"),
     gender: yup.string().required("This field is required"),
+    // phoneNumber : yup.string().required(),
     password: yup
       .string()
       .min(8, "Password should be biger than 8")
@@ -50,8 +58,8 @@ const Signup = () => {
   });
   const router = useRouter();
 
-  const [sginUp, { isLoading, data, isSuccess, error }]: any =
-    useSginUpMutation({});
+  const [signUp, { isLoading, data, isSuccess, error }]: any =
+    useSignUpMutation({});
   console.log({ error });
 
   if (isSuccess) localStorage.setItem("e-book", JSON.stringify(data));
@@ -60,7 +68,7 @@ const Signup = () => {
     if (isSuccess) {
       router.push("/landing");
     }
-  }, [isSuccess]);
+  }, [isSuccess, router]);
 
   const getToken =
     typeof window !== "undefined"
@@ -71,12 +79,12 @@ const Signup = () => {
     if (getToken !== null) {
       setToken(getToken);
     }
-  }, []);
+  }, [getToken]);
   console.log({ token });
 
   const handleSginUp = (values: any) => {
     console.log({ values });
-    sginUp({
+    signUp({
       firstName: values.firstName,
       lastName: values.lastName,
       gender: values.gender,
@@ -112,8 +120,7 @@ const Signup = () => {
               onSubmit={(values) => {
                 console.log(values);
                 handleSginUp(values);
-              }}
-            >
+              }}>
               <Form>
                 <div className="card-body">
                   <div className="md:grid block grid-cols-12 gap-1">
@@ -140,7 +147,20 @@ const Signup = () => {
                         </div>
                       </div>
                     ))}
-
+                    <div className="md:col-span-12">
+                      <label className="label">
+                        <span className="label-text">Phone Number*</span>
+                      </label>
+                      <PhoneInput
+                        addInternationalOption={true}
+                        defaultCountry={"SY"}
+                        value={phone}
+                        focusInputOnCountrySelection={true}
+                        initialValueFormat={"national"}
+                        onChange={setPhone}
+                        className="input input-bordered input-md"
+                      />
+                    </div>
                     <div className="md:col-span-6">
                       <div className="form-control">
                         <label className="label">
@@ -192,8 +212,7 @@ const Signup = () => {
                         <Field
                           as="select"
                           className="select select-bordered"
-                          name="gender"
-                        >
+                          name="gender">
                           <option disabled selected>
                             Pick one
                           </option>
@@ -215,8 +234,7 @@ const Signup = () => {
                   <label className="label">
                     <Link
                       href="login"
-                      className="label-text-alt link link-hover"
-                    >
+                      className="label-text-alt link link-hover">
                       You have an account? LogIn!
                     </Link>
                   </label>
@@ -225,8 +243,7 @@ const Signup = () => {
                     {isLoading ? (
                       <button
                         className="btn dark:glass btn-primary loading"
-                        type="submit"
-                      ></button>
+                        type="submit"></button>
                     ) : (
                       <>
                         {error ? (
@@ -238,8 +255,7 @@ const Signup = () => {
                         ) : null}
                         <button
                           className="btn dark:glass btn-primary"
-                          type="submit"
-                        >
+                          type="submit">
                           SignUp
                         </button>
                       </>

@@ -2,7 +2,7 @@ import { apiSlice } from "../api-slice";
 
 const extendedApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    sginUp: builder.mutation({
+    signUp: builder.mutation({
       query: (body) => ({
         url: "/api/Accounts/Register/register",
         method: "POST",
@@ -21,4 +21,4 @@ const extendedApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useSginUpMutation, useLoginMutation } = extendedApi;
+export const { useSignUpMutation, useLoginMutation } = extendedApi;

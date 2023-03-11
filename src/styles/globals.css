@@ -171,3 +171,13 @@ div.about-wrapper {
     left: 18px;
   }
 }
+
+/* phone number input  */
+.PhoneInputInput {
+  background-color: transparent;
+}
+.PhoneInputInput:focus {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
