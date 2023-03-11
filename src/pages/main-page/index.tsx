@@ -3,7 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-
+import { useGetBookByGenreQuery } from "@/api/books/api";
+import Loading from "@/components/loading/loading";
 const MainPage = () => {
   const books = [
     {
@@ -33,6 +34,9 @@ const MainPage = () => {
     },
   ];
 
+  const { data: booksByGenre, isLoading } = useGetBookByGenreQuery(1);
+  console.log({ booksByGenre });
+
   // const getToken =
   //   typeof window !== "undefined"
   //     ? JSON.parse(localStorage.getItem("e-book") as any)
@@ -52,106 +56,116 @@ const MainPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="wrapper flex justify-center items-center min-h-[350px]">
-        <div className="text-center">
-          <div className="max-w-2xl">
-            <h1 className={`md:text-5xl text-4xl font-bold lg:w-12/12`}>
-              Best Place to Find Your Favorit
-              <span className="text-bothColor"> Books.</span>
-            </h1>
-            <p className="py-6">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              nemo totam delectus ut deleniti, accusamus illum magni, facilis
-              libero dolore vero quae. Sint, impedit beatae similique distinctio
-              nihil recusandae. Itaque!
-            </p>
-            <button className="btn btn-primary">Get Started</button>
+      {isLoading ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <>
+          <div className="wrapper flex justify-center items-center min-h-[350px]">
+            <div className="text-center">
+              <div className="max-w-2xl">
+                <h1 className={`md:text-5xl text-4xl font-bold lg:w-12/12`}>
+                  Best Place to Find Your Favorit
+                  <span className="text-bothColor"> Books.</span>
+                </h1>
+                <p className="py-6">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+                  nemo totam delectus ut deleniti, accusamus illum magni,
+                  facilis libero dolore vero quae. Sint, impedit beatae
+                  similique distinctio nihil recusandae. Itaque!
+                </p>
+                <button className="btn btn-primary">Get Started</button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div
-        className="wrapper relative min-h-[400px] box-border"
-        style={{ backgroundPosition: "center center" }}>
-        <div style={{ boxSizing: "inherit" }} className="flex">
-          <div className="min-h-[500px]">
-            <img
-              src="/images/home-bg.png"
-              alt="bg-iamge"
-              className="home-image"
-            />
+          <div
+            className="wrapper relative min-h-[400px] box-border"
+            style={{ backgroundPosition: "center center" }}>
+            <div style={{ boxSizing: "inherit" }} className="flex">
+              <div className="min-h-[500px]">
+                <img
+                  src="/images/home-bg.png"
+                  alt="bg-iamge"
+                  className="home-image"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="divider"></div>
-      <div className="wrapper py-[40px]">
-        <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-          Gener Book.
-        </h2>
-        <div className="flex justify-between items-center flex-wrap ">
-          {books.map((item, key) => (
-            <div className="" key={key}>
-              <Card
-                img={item.img}
-                title={item.title}
-                price={item.price}
-                href="/product-info"
-              />
+          <div className="divider"></div>
+          <div className="wrapper py-[40px]">
+            <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
+              Gener Book.
+            </h2>
+            <div className="grid grid-cols-12 gap-8">
+              {booksByGenre?.response?.map((item: any, key: any) => (
+                <div
+                  className="lg:col-span-2 md:col-span-3 sm:col-span-6 col-span-6"
+                  key={key}>
+                  <Card
+                    img={item.image}
+                    title={item.title}
+                    price={item.price}
+                    href="/product-info"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <Link href="/products">
-          <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
-            View All
-          </h3>
-        </Link>
-      </div>
-      <div className="divider"></div>
-      <div className="wrapper py-[40px]">
-        <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-          Gener Book.
-        </h2>
-        <div className="flex justify-between items-center flex-wrap ">
-          {books.map((item, key) => (
-            <div className="" key={key}>
-              <Card
-                img={item.img}
-                title={item.title}
-                price={item.price}
-                href="/product-info"
-              />
+            <Link href="/genre/1">
+              <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                View All
+              </h3>
+            </Link>
+          </div>
+          <div className="divider"></div>
+          {/* <div className="wrapper py-[40px]">
+            <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
+              Gener Book.
+            </h2>
+            <div className="flex justify-between items-center flex-wrap ">
+              {books.map((item, key) => (
+                <div className="" key={key}>
+                  <Card
+                    img={item.img}
+                    title={item.title}
+                    price={item.price}
+                    href="/product-info"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <Link href="/products">
-          <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
-            View All
-          </h3>
-        </Link>
-      </div>
-      <div className="divider"></div>
-      <div className="wrapper py-[40px]">
-        <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-          Gener Book.
-        </h2>
-        <div className="flex justify-between items-center flex-wrap ">
-          {books.map((item, key) => (
-            <div className="" key={key}>
-              <Card
-                img={item.img}
-                title={item.title}
-                price={item.price}
-                href="/product-info"
-              />
+            <Link href="/products">
+              <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                View All
+              </h3>
+            </Link>
+          </div>
+          <div className="divider"></div>
+          <div className="wrapper py-[40px]">
+            <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
+              Gener Book.
+            </h2>
+            <div className="flex justify-between items-center flex-wrap ">
+              {books.map((item, key) => (
+                <div className="" key={key}>
+                  <Card
+                    img={item.img}
+                    title={item.title}
+                    price={item.price}
+                    href="/product-info"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <Link href="/products">
-          <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
-            View All
-          </h3>
-        </Link>
-      </div>
-      <div className="divider"></div>
+            <Link href="/products">
+              <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                View All
+              </h3>
+            </Link>
+          </div>
+          <div className="divider"></div> */}
+        </>
+      )}
     </>
   );
 };

@@ -11,7 +11,6 @@ import { E164Number } from "libphonenumber-js/types";
 
 const Signup = () => {
   const [phone, setPhone] = useState<E164Number | undefined>();
-
   const signupData = [
     {
       label: "First Name*",
@@ -35,7 +34,6 @@ const Signup = () => {
       grid: "md:col-span-12",
     },
   ];
-
   const schema = yup.object().shape({
     email: yup.string().required("This field is required"),
     firstName: yup.string().required("This field is required"),
@@ -60,15 +58,16 @@ const Signup = () => {
 
   const [signUp, { isLoading, data, isSuccess, error }]: any =
     useSignUpMutation({});
-  console.log({ error });
+  // console.log({ error });
 
   if (isSuccess) localStorage.setItem("e-book", JSON.stringify(data));
+  console.log({ isSuccess });
 
   useEffect(() => {
     if (isSuccess) {
-      router.push("/landing");
+      router.push("/main-page");
     }
-  }, [isSuccess, router]);
+  }, [isSuccess]);
 
   const getToken =
     typeof window !== "undefined"
@@ -79,8 +78,8 @@ const Signup = () => {
     if (getToken !== null) {
       setToken(getToken);
     }
-  }, [getToken]);
-  console.log({ token });
+  }, []);
+  // console.log({ token });
 
   const handleSginUp = (values: any) => {
     console.log({ values });

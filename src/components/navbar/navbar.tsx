@@ -24,11 +24,12 @@ const Navbar = () => {
       setToken(getToken);
     }
   }, [router]);
-  console.log({ token });
 
+  console.log({ token });
   const handleDeleteToken = () => {
     localStorage.removeItem("e-book");
     router.push("/");
+    setToken(null);
   };
 
   return (

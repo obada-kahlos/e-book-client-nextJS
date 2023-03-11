@@ -2,9 +2,9 @@ import { apiSlice } from "../api-slice";
 
 const extendedApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    example: builder.query({
-      query: () => ({
-        url: "/",
+    getBookByGenre: builder.query({
+      query: (id) => ({
+        url: `/api/Books/get-book-by-genre/${id}?PageSize=6`,
         method: "GET",
       }),
       providesTags: ["Books"],
@@ -12,4 +12,4 @@ const extendedApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useExampleQuery } = extendedApi;
+export const { useGetBookByGenreQuery } = extendedApi;

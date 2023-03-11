@@ -17,16 +17,16 @@ const Login = () => {
       .required("This field is required"),
   });
 
-  const getToken =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("e-book") as any)
-      : null;
-  const [token, setToken] = useState<any>(null);
-  useEffect(() => {
-    if (getToken !== null) {
-      setToken(getToken);
-    }
-  }, []);
+  // const getToken =
+  //   typeof window !== "undefined"
+  //     ? JSON.parse(localStorage.getItem("e-book") as any)
+  //     : null;
+  // const [token, setToken] = useState<any>(null);
+  // useEffect(() => {
+  //   if (getToken !== null) {
+  //     setToken(getToken);
+  //   }
+  // }, []);
 
   const [login, { isSuccess, isLoading, error, data }]: any = useLoginMutation(
     {}
@@ -36,11 +36,10 @@ const Login = () => {
   };
 
   if (isSuccess) localStorage.setItem("e-book", JSON.stringify(data));
-  console.log({ error });
   const router = useRouter();
   useEffect(() => {
     if (isSuccess) {
-      router.push("/landing");
+      router.push("/main-page");
     }
   }, [isSuccess]);
 
@@ -66,8 +65,7 @@ const Login = () => {
               validationSchema={schema}
               onSubmit={(values) => {
                 handleLogin(values);
-              }}
-            >
+              }}>
               <Form>
                 <div className="card-body">
                   <div className="form-control">
@@ -110,8 +108,7 @@ const Login = () => {
                     <label className="label">
                       <label
                         htmlFor="forgetPassword"
-                        className="label-text-alt hover:text-bothColor cursor-pointer"
-                      >
+                        className="label-text-alt hover:text-bothColor cursor-pointer">
                         Forgot password?
                       </label>
                       <Link href="signup">
@@ -124,8 +121,7 @@ const Login = () => {
                   {isLoading ? (
                     <button
                       className="btn dark:glass btn-primary loading"
-                      type="submit"
-                    ></button>
+                      type="submit"></button>
                   ) : (
                     <>
                       {error ? (
@@ -137,8 +133,7 @@ const Login = () => {
                       ) : null}
                       <button
                         className="btn dark:glass btn-primary"
-                        type="submit"
-                      >
+                        type="submit">
                         Login
                       </button>
                     </>
@@ -166,8 +161,7 @@ const Login = () => {
           </div>
           <button
             className="btn dark:glass btn-primary btn-block my-[10px]"
-            type="submit"
-          >
+            type="submit">
             Submit
           </button>
         </>

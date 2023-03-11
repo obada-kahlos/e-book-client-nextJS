@@ -20,13 +20,9 @@ const Card: React.FC<cardProps> = (props) => {
           className="object-fill w-full h-[250px] rounded-xl"
         />
       </figure>
-      <h3 className="dark:text-[#fff] text-[20px] my-[5px]">
-        {" "}
-        {props.title}.{" "}
-      </h3>
+      <h3 className="dark:text-[#fff] text-[20px] my-[5px]">{props.title}.</h3>
       <p className="text-[] mb-[10px]">
-        {" "}
-        <strong>{props.price}</strong>{" "}
+        <strong>{props.price}</strong>
       </p>
       <Link
         href={props.href}
