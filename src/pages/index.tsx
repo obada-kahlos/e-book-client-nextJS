@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { Lora, Anton } from "@next/font/google";
 import Link from "next/link";
@@ -15,6 +16,7 @@ import { HiOutlineArrowDownTray } from "react-icons/hi2";
 
 import SectionTitle from "@/components/section-title/section-title";
 import ContactUs from "@/components/contact-us/contact-us";
+import { useRouter } from "next/router";
 
 const lora = Lora({
   weight: "700",
@@ -22,6 +24,23 @@ const lora = Lora({
 });
 
 export default function Home() {
+  const router = useRouter();
+  const getToken =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("e-book") as any)
+      : null;
+  const [token, setToken] = useState<any>(null);
+  useEffect(() => {
+    if (getToken !== null) {
+      setToken(getToken);
+    }
+  }, [router]);
+
+  if (token) {
+    router.push("/main-page");
+  }
+  // token ?  : router.push("/");
+
   const AboutData = [
     {
       icon: <IoAnalytics />,

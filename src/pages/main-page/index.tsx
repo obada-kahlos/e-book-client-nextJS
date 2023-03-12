@@ -106,7 +106,7 @@ const MainPage = () => {
                     img={item.image}
                     title={item.title}
                     price={item.price}
-                    href="/product-info"
+                    href={`/book-info/${item.id}`}
                   />
                 </div>
               ))}

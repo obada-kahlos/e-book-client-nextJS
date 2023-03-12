@@ -7,8 +7,4 @@ export const navbarData = [
     title: "Home",
     href: "/main-page",
   },
-  {
-    title: "Product-info",
-    href: "/product-info",
-  },
 ];

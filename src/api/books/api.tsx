@@ -9,7 +9,14 @@ const extendedApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Books"],
     }),
+    getBookById: builder.query({
+      query: (id) => ({
+        url: `/api/Books/get-book-by-id/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Books"],
+    }),
   }),
 });
 
-export const { useGetBookByGenreQuery } = extendedApi;
+export const { useGetBookByGenreQuery, useGetBookByIdQuery } = extendedApi;

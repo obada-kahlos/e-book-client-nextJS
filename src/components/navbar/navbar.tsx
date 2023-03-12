@@ -17,7 +17,6 @@ const Navbar = () => {
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("e-book") as any)
       : null;
-
   const [token, setToken] = useState<any>(null);
   useEffect(() => {
     if (getToken !== null) {
