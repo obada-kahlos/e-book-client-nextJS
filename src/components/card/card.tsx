@@ -17,7 +17,7 @@ const Card: React.FC<cardProps> = (props) => {
         <img
           src={props.img}
           alt={props.title}
-          className="object-fill w-full h-[250px] rounded-xl"
+          className="object-fill sm:w-[180px] w-full h-[250px] rounded-xl"
         />
       </figure>
       <h3 className="dark:text-[#fff] text-[20px] my-[5px]">{props.title}.</h3>
@@ -26,7 +26,7 @@ const Card: React.FC<cardProps> = (props) => {
       </p>
       <Link
         href={props.href}
-        className="btn dark:glass btn-primary btn-block my-[10px]">
+        className="btn dark:glass btn-primary sm:w-[180px] w-full my-[10px]">
         Viwe Book
       </Link>
     </>

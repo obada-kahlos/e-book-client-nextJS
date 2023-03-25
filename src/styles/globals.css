@@ -87,7 +87,13 @@ img.home-image {
 /* wrapper */
 @media (min-width: 1200px) {
   div.wrapper {
-    width: 1200px;
+    width: 1100px;
+    margin: 0px auto;
+  }
+}
+@media (min-width: 768px) {
+  div.wrapper {
+    width: 85%;
     margin: 0px auto;
   }
 }

@@ -34,7 +34,11 @@ const MainPage = () => {
     },
   ];
 
-  const { data: booksByGenre, isLoading } = useGetBookByGenreQuery(1);
+  const { data: booksByGenre, isLoading } = useGetBookByGenreQuery({
+    id: 1,
+    pageSize: 6,
+    pageNumber: 1,
+  });
   console.log({ booksByGenre });
 
   // const getToken =
@@ -93,31 +97,31 @@ const MainPage = () => {
             </div>
           </div>
           <div className="divider"></div>
-          <div className="wrapper py-[40px]">
-            <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-              Gener Book.
-            </h2>
-            <div className="grid grid-cols-12 gap-8">
-              {booksByGenre?.response?.map((item: any, key: any) => (
-                <div
-                  className="lg:col-span-2 md:col-span-3 sm:col-span-6 col-span-6"
-                  key={key}>
-                  <Card
-                    img={item.image}
-                    title={item.title}
-                    price={item.price}
-                    href={`/book-info/${item.id}`}
-                  />
-                </div>
-              ))}
+          {booksByGenre?.response?.length > 0 ? (
+            <div className="wrapper py-[40px]">
+              <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
+                Gener Book.
+              </h2>
+              <div className="flex justify-between items-center flex-wrap">
+                {booksByGenre?.response?.map((item: any, key: any) => (
+                  <div className="" key={key}>
+                    <Card
+                      img={item.image}
+                      title={item.title}
+                      price={item.price}
+                      href={`/book-info/${item.id}`}
+                    />
+                  </div>
+                ))}
+              </div>
+              <Link href="/genre/1">
+                <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                  View All
+                </h3>
+              </Link>
             </div>
-            <Link href="/genre/1">
-              <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
-                View All
-              </h3>
-            </Link>
-          </div>
-          <div className="divider"></div>
+          ) : null}
+          {/* <div className="divider"></div> */}
           {/* <div className="wrapper py-[40px]">
             <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
               Gener Book.

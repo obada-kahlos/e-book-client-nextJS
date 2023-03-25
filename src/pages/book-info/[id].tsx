@@ -13,9 +13,7 @@ import Counter from "@/components/counter/counter";
 const BookInfo = () => {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
   const { data: bookData, isLoading } = useGetBookByIdQuery(id);
-  console.log({ bookData });
   const books = [
     {
       img: "/images/book-one.jpg",
@@ -58,9 +56,11 @@ const BookInfo = () => {
                 <Image
                   src={bookData?.image}
                   alt={bookData?.title}
-                  width={400}
-                  height={200}
-                  className="mx-auto h-full object-cover cursor-pointer rounded-md"
+                  fill
+                  sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
+                  className="mx-auto object-cover cursor-pointer rounded-md"
                 />
               </div>
               <div className="sm:col-span-8 lg:col-span-10 col-span-12 md:my-0 my-4">
@@ -91,7 +91,6 @@ const BookInfo = () => {
                 </div>
                 <TextInfo title="Publisher" desc={bookData?.publishers} />
                 <TextInfo title="Language" desc={bookData?.language} />
-                <TextInfo title="Author" desc="Bahaa Atekah" />
                 <TextInfo title="Price" desc={bookData?.price} />
                 <TextInfo
                   title="Number Of Pages"
