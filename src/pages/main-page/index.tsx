@@ -34,12 +34,21 @@ const MainPage = () => {
     },
   ];
 
-  const { data: booksByGenre, isLoading } = useGetBookByGenreQuery({
+  const { data: booksByGenreOne, isLoading } = useGetBookByGenreQuery({
     id: 1,
     pageSize: 6,
     pageNumber: 1,
   });
-  console.log({ booksByGenre });
+  const { data: booksByGenreTow } = useGetBookByGenreQuery({
+    id: 2,
+    pageSize: 6,
+    pageNumber: 1,
+  });
+  const { data: booksByGenreThree } = useGetBookByGenreQuery({
+    id: 3,
+    pageSize: 6,
+    pageNumber: 1,
+  });
 
   // const getToken =
   //   typeof window !== "undefined"
@@ -97,77 +106,85 @@ const MainPage = () => {
             </div>
           </div>
           <div className="divider"></div>
-          {booksByGenre?.response?.length > 0 ? (
+          {booksByGenreOne?.response?.length > 0 ? (
             <div className="wrapper py-[40px]">
               <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
                 Gener Book.
               </h2>
-              <div className="flex justify-between items-center flex-wrap">
-                {booksByGenre?.response?.map((item: any, key: any) => (
-                  <div className="" key={key}>
-                    <Card
-                      img={item.image}
-                      title={item.title}
-                      price={item.price}
-                      href={`/book-info/${item.id}`}
-                    />
-                  </div>
+              <div className="flex justify-center items-center flex-wrap">
+                {booksByGenreOne?.response?.map((item: any, key: number) => (
+                  <Card
+                    key={key}
+                    img={item.image}
+                    title={item.title}
+                    price={item.price}
+                    href={`/book-info/${item.id}`}
+                  />
                 ))}
               </div>
-              <Link href="/genre/1">
-                <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
-                  View All
-                </h3>
-              </Link>
+              {booksByGenreOne?.response?.length > 5 && (
+                <Link href="/genre/1">
+                  <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                    View All
+                  </h3>
+                </Link>
+              )}
             </div>
           ) : null}
-          {/* <div className="divider"></div> */}
-          {/* <div className="wrapper py-[40px]">
-            <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-              Gener Book.
-            </h2>
-            <div className="flex justify-between items-center flex-wrap ">
-              {books.map((item, key) => (
-                <div className="" key={key}>
+
+          {booksByGenreTow?.response?.length > 0 ? (
+            <div className="wrapper py-[40px]">
+              <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
+                Gener Book.
+              </h2>
+              <div className="flex justify-center items-center flex-wrap">
+                {booksByGenreTow?.response?.map((item: any, key: number) => (
                   <Card
-                    img={item.img}
+                    key={key}
+                    img={item.image}
                     title={item.title}
                     price={item.price}
-                    href="/product-info"
+                    href={`/book-info/${item.id}`}
                   />
-                </div>
-              ))}
+                ))}
+              </div>
+              {booksByGenreTow?.response?.length > 5 && (
+                <Link href="/genre/2">
+                  <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                    View All
+                  </h3>
+                </Link>
+              )}
             </div>
-            <Link href="/products">
-              <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
-                View All
-              </h3>
-            </Link>
-          </div>
+          ) : null}
           <div className="divider"></div>
-          <div className="wrapper py-[40px]">
-            <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-              Gener Book.
-            </h2>
-            <div className="flex justify-between items-center flex-wrap ">
-              {books.map((item, key) => (
-                <div className="" key={key}>
+
+          {booksByGenreThree?.response?.length > 0 ? (
+            <div className="wrapper py-[40px]">
+              <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
+                Gener Book.
+              </h2>
+              <div className="flex justify-center items-center flex-wrap">
+                {booksByGenreThree?.response?.map((item: any, key: number) => (
                   <Card
-                    img={item.img}
+                    key={key}
+                    img={item.image}
                     title={item.title}
                     price={item.price}
-                    href="/product-info"
+                    href={`/book-info/${item.id}`}
                   />
-                </div>
-              ))}
+                ))}
+              </div>
+              {booksByGenreThree?.response?.length > 5 && (
+                <Link href="/genre/2">
+                  <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                    View All
+                  </h3>
+                </Link>
+              )}
             </div>
-            <Link href="/products">
-              <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
-                View All
-              </h3>
-            </Link>
-          </div>
-          <div className="divider"></div> */}
+          ) : null}
+          <div className="divider"></div>
         </>
       )}
     </>

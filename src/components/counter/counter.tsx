@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { number } from "yup";
 
-const Counter = () => {
+interface CounterProps {
+  quantity: number;
+}
+
+const Counter: React.FC<CounterProps> = ({ ...props }) => {
   const [counter, setCounter] = useState<number>(1);
   return (
     <>
@@ -23,7 +27,7 @@ const Counter = () => {
         />
         <button
           className="btn btn-circle rounded-l-[0px] rounded-r-[7px]"
-          disabled={counter === 999 ? true : false}
+          disabled={counter === props.quantity ? true : false}
           onClick={() => setCounter(counter + 1)}>
           <AiOutlinePlus />
         </button>

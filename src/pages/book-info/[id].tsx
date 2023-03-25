@@ -92,12 +92,13 @@ const BookInfo = () => {
                 <TextInfo title="Publisher" desc={bookData?.publishers} />
                 <TextInfo title="Language" desc={bookData?.language} />
                 <TextInfo title="Price" desc={bookData?.price} />
+                <TextInfo title="quantity" desc={bookData?.quantity} />
                 <TextInfo
                   title="Number Of Pages"
                   desc={bookData?.numberPages}
                 />
                 <div className="flex justify-end  mt-[10px] gap-2">
-                  <Counter />
+                  <Counter quantity={bookData?.quantity} />
                   <button className="btn btn-primary gap-2">
                     <span className="text-[20px]">
                       <IoCartOutline />

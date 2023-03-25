@@ -4,7 +4,7 @@ const extendedApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBookByGenre: builder.query({
       query: ({ id, pageSize, pageNumber }) => ({
-        url: `/api/Books/get-book-by-genre${id}?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+        url: `/api/Books/get-book-by-genre/${id}?PageNumber=${pageNumber}&PageSize=${pageSize}`,
         method: "GET",
       }),
       providesTags: ["Books"],

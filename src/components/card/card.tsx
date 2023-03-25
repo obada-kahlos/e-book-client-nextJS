@@ -12,7 +12,7 @@ interface cardProps {
 
 const Card: React.FC<cardProps> = (props) => {
   return (
-    <>
+    <div className="xl:w-[calc(90%/6)] lg:w-[calc(90%/5)] sm:w-[calc(90%/3)] w-[calc(90%/2)]">
       <figure>
         <img
           src={props.img}
@@ -29,7 +29,7 @@ const Card: React.FC<cardProps> = (props) => {
         className="btn dark:glass btn-primary sm:w-[180px] w-full my-[10px]">
         Viwe Book
       </Link>
-    </>
+    </div>
   );
 };
 
