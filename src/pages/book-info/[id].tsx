@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import ImageComponent from "@/components/img/image";
 import TextInfo from "@/components/text-info/text-info";
@@ -10,6 +10,7 @@ import { useGetBookByIdQuery } from "@/api/books/api";
 import Loading from "@/components/loading/loading";
 import Image from "next/image";
 import Counter from "@/components/counter/counter";
+import { useAddToCartMutation } from "@/api/cart/api";
 const BookInfo = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -41,29 +42,34 @@ const BookInfo = () => {
       price: "12300$",
     },
   ];
+
+  const [counter, setCounter] = useState<number>(1);
+
+  const [addToCart, { isSuccess }] = useAddToCartMutation();
+  const handleAddToCart = () => {
+    addToCart({ Amount: counter, BookId: id });
+  };
+  console.log({ isSuccess });
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
         <div className="wrapper">
-          <div className="dark:shadow-blackShadow my-[30px] rounded-3xl shadow-xl py-[30px] md:px-[40px] px-10px">
+          <div className="dark:shadow-blackShadow my-[30px] rounded-3xl shadow-xl py-[30px] md:px-[40px] px-[10px] ">
             <h1 className="md:text-[30px] text-[24px] text-[#fff]">
               Product Info.
             </h1>
             <div className="sm:grid grid-cols-12 gap-4 my-[20px] ">
-              <div className="sm:col-span-2 lg:col-span-2 col-span-2 relative">
+              <div className="xl:col-span-2 lg:col-span-3 sm:col-span-4 col-span-12 relative">
                 <Image
                   src={bookData?.image}
                   alt={bookData?.title}
                   fill
-                  sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
                   className="mx-auto object-cover cursor-pointer rounded-md"
                 />
               </div>
-              <div className="sm:col-span-8 lg:col-span-10 col-span-12 md:my-0 my-4">
+              <div className="xl:col-span-9 lg:col-span-9 sm:col-span-8 col-span-12 md:my-0 my-4">
                 <div className="flex justify-between md:items-center items-start md:flex-row flex-col">
                   <h1 className="md:text-[30px] text-[24px] text-[#fff]">
                     {bookData?.title}
@@ -98,18 +104,26 @@ const BookInfo = () => {
                   desc={bookData?.numberPages}
                 />
                 <div className="flex justify-end  mt-[10px] gap-2">
-                  <Counter quantity={bookData?.quantity} />
+                  <Counter
+                    quantity={bookData?.quantity}
+                    counter={counter}
+                    setCounter={setCounter}
+                  />
                   <button className="btn btn-primary gap-2">
                     <span className="text-[20px]">
                       <IoCartOutline />
                     </span>
-                    <span className="sm:block hidden">Add To Cart</span>
+                    <span
+                      className="sm:block hidden"
+                      onClick={() => handleAddToCart()}>
+                      Add To Cart
+                    </span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <div className="wrapper py-[40px]">
+          {/* <div className="wrapper py-[40px]">
             <SectionTitle title="Book You May Like It" />
             <div className="">
               <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
@@ -133,7 +147,7 @@ const BookInfo = () => {
                 </h3>
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </>

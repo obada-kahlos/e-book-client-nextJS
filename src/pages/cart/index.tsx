@@ -1,8 +1,24 @@
+import { useGetCartBookQuery, useRemoveFromCartMutation } from "@/api/cart/api";
+import Card from "@/components/card/card";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
 const Cart = () => {
+  const { data, refetch } = useGetCartBookQuery({});
+  const [removeFromCart, { isSuccess }] = useRemoveFromCartMutation({});
+  console.log(isSuccess);
+
+  const handelRemoveFromCart = (bookId: number) => {
+    removeFromCart(bookId);
+  };
+
+  console.log({ data });
+  const route = useRouter();
+  useEffect(() => {
+    refetch();
+  }, [route, isSuccess]);
   return (
     <>
       <Head>
@@ -11,15 +27,42 @@ const Cart = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="wrapper h-[80vh] flex justify-center items-center flex-col">
-        <h1 className="dark:text-[#fff] md:text-[40px] text-[22px]">
-          Your Cart is Empty!
-        </h1>
-        <Link href={"/main-page"} className="btn btn-primary my-[10px]">
-          Add Some
-        </Link>
+      <div className="wrapper mt-4">
+        {data?.response?.length > 0 ? (
+          <div className="flex justify-between items-center flex-wrap sm:gap-0 gap-2">
+            {data?.response?.map(
+              (
+                item: {
+                  image: string;
+                  bookName: string;
+                  price: number;
+                  bookId: number;
+                },
+                key: number
+              ) => (
+                <Card
+                  key={key}
+                  img={item.image}
+                  title={item.bookName}
+                  price={item.price}
+                  href={`/book-info/${item.bookId}`}
+                  inCart={true}
+                  removeButton={() => handelRemoveFromCart(item.bookId)}
+                />
+              )
+            )}
+          </div>
+        ) : (
+          <div className=" h-[80vh] flex justify-center items-center flex-col">
+            <h1 className="dark:text-[#fff] md:text-[40px] text-[22px]">
+              Your Cart is Empty!
+            </h1>
+            <Link href={"/main-page"} className="btn btn-primary my-[10px]">
+              Add Some
+            </Link>
+          </div>
+        )}
       </div>
-      ;
     </>
   );
 };
