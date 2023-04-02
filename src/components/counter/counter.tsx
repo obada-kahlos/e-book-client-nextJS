@@ -23,7 +23,6 @@ const Counter: React.FC<CounterProps> = ({ ...props }) => {
           value={counter}
           maxLength={3}
           className="counter-input py-[9.7px] w-[50px] text-center focus:outline-none text-[18px]"
-          // onChange={(e: any) => setCounter(e.target.value)}
         />
         <button
           className="btn btn-circle rounded-l-[0px] rounded-r-[7px]"

@@ -16,7 +16,14 @@ const extendedApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Books"],
     }),
+    getGenre: builder.query({
+      query: () => ({
+        url: "/api/AdminBooks/get-genres",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetBookByGenreQuery, useGetBookByIdQuery } = extendedApi;
+export const { useGetBookByGenreQuery, useGetBookByIdQuery, useGetGenreQuery } =
+  extendedApi;

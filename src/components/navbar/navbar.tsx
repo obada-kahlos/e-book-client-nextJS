@@ -24,12 +24,17 @@ const Navbar = () => {
     }
   }, [router]);
 
-  console.log({ token });
   const handleDeleteToken = () => {
     localStorage.removeItem("e-book");
     router.push("/");
     setToken(null);
   };
+
+  // useEffect(() => {
+  //   if (getToken) {
+  //     router.push("/main-page");
+  //   }
+  // }, [handleDeleteToken]);
 
   return (
     <div className="navbar backdrop-blur-lg  md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md  z-[999]">

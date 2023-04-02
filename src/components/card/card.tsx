@@ -6,7 +6,7 @@ interface cardProps {
   title: string;
   desc?: string;
   bade?: string;
-  price: string;
+  price: string | number;
   href: string;
 }
 

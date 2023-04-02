@@ -187,3 +187,37 @@ div.about-wrapper {
   outline: none;
   background-color: transparent;
 }
+
+.genre-link {
+  position: relative;
+  font-size: 20px;
+  color: #0d89d4;
+  transition: 0.4s ease-in;
+}
+.genre-link:after {
+  position: absolute;
+  content: "";
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #0d89d4;
+}
+.active-link {
+  position: relative;
+  font-size: 20px;
+  transition: 0.3s;
+}
+.active-link:after {
+  position: absolute;
+  content: "";
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #0d89d4;
+  transition: 0.3s;
+}
+.active-link:hover:after {
+  width: 100%;
+}

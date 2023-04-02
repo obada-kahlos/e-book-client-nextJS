@@ -61,7 +61,7 @@ const Signup = () => {
   // console.log({ error });
 
   if (isSuccess) localStorage.setItem("e-book", JSON.stringify(data));
-  console.log({ isSuccess });
+  // console.log({ isSuccess });
 
   useEffect(() => {
     if (isSuccess) {
@@ -69,26 +69,26 @@ const Signup = () => {
     }
   }, [isSuccess]);
 
-  const getToken =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("e-book") as any)
-      : null;
-  const [token, setToken] = useState<any>(null);
-  useEffect(() => {
-    if (getToken !== null) {
-      setToken(getToken);
-    }
-  }, []);
+  // const getToken =
+  //   typeof window !== "undefined"
+  //     ? JSON.parse(localStorage.getItem("e-book") as any)
+  //     : null;
+  // const [token, setToken] = useState<any>(null);
+  // useEffect(() => {
+  //   if (getToken !== null) {
+  //     setToken(getToken);
+  //   }
+  // }, []);
   // console.log({ token });
 
   const handleSginUp = (values: any) => {
-    console.log({ values });
     signUp({
       firstName: values.firstName,
       lastName: values.lastName,
       gender: values.gender,
       password: values.password,
       email: values.email,
+      phoneNumber: phone,
     });
   };
 
@@ -117,7 +117,6 @@ const Signup = () => {
               }}
               validationSchema={schema}
               onSubmit={(values) => {
-                console.log(values);
                 handleSginUp(values);
               }}>
               <Form>
