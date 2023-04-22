@@ -56,7 +56,7 @@ const BookInfo = () => {
         <Loading />
       ) : (
         <div className="wrapper">
-          <div className="dark:shadow-blackShadow my-[30px] rounded-3xl shadow-xl py-[30px] md:px-[40px] px-[10px] ">
+          <div className="dark:shadow-blackShadow bg-base-100 my-[30px] rounded-3xl shadow-xl py-[30px] md:px-[40px] px-[10px] ">
             <h1 className="md:text-[30px] text-[24px] text-[#fff]">
               Product Info.
             </h1>

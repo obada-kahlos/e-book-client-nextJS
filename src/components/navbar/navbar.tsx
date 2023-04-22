@@ -133,6 +133,10 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="flex md:gap-4 gap-1">
+            <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <div className="indicator">W</div>
+            </label>
+
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <div className="indicator">
@@ -157,7 +161,6 @@ const Navbar = () => {
                 className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                 <div className="card-body">
                   <span className="font-bold text-lg">8 Items</span>
-                  <span className="text-info">Subtotal: $999</span>
                   <div className="card-actions">
                     <Link href={"/cart"} className="btn btn-primary btn-block">
                       View cart
@@ -166,6 +169,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
+
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">

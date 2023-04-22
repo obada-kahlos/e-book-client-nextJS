@@ -44,6 +44,8 @@ const MainPage = () => {
     pageSize: 6,
     pageNumber: 1,
   });
+  console.log({ booksByGenreTow });
+
   const { data: booksByGenreThree } = useGetBookByGenreQuery({
     id: 3,
     pageSize: 6,
@@ -111,15 +113,28 @@ const MainPage = () => {
               <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
                 Gener Book.
               </h2>
-              <div className="flex justify-center items-center flex-wrap">
+              <div className="flex justify-center gap-4 items-center flex-wrap">
                 {booksByGenreOne?.response?.map((item: any, key: number) => (
-                  <Card
-                    key={key}
-                    img={item.image}
-                    title={item.title}
-                    price={item.price}
-                    href={`/book-info/${item.id}`}
-                  />
+                  <div className="card w-96 bg-base-100 shadow-xl" key={key}>
+                    <figure className="px-5 pt-5">
+                      <img
+                        src={item?.image}
+                        alt={item?.title}
+                        className="rounded-xl w-[50%]"
+                      />
+                    </figure>
+                    <div className="card-body items-center text-center">
+                      <h2 className="card-title">{item.title}</h2>
+                      <p>{item?.description?.slice(0, 40)}</p>
+                      <div className="card-actions">
+                        <Link
+                          href={`/book-info/${item.id}`}
+                          className="btn btn-primary">
+                          View Now
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
               {booksByGenreOne?.response?.length > 5 && (
@@ -137,45 +152,31 @@ const MainPage = () => {
               <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
                 Gener Book.
               </h2>
-              <div className="flex justify-center items-center flex-wrap">
+              <div className="flex justify-center gap-4 items-center flex-wrap">
                 {booksByGenreTow?.response?.map((item: any, key: number) => (
-                  <Card
-                    key={key}
-                    img={item.image}
-                    title={item.title}
-                    price={item.price}
-                    href={`/book-info/${item.id}`}
-                  />
+                  <div className="card w-96 bg-base-100 shadow-xl" key={key}>
+                    <figure className="px-5 pt-5">
+                      <img
+                        src={item?.image}
+                        alt={item?.title}
+                        className="rounded-xl w-[50%]"
+                      />
+                    </figure>
+                    <div className="card-body items-center text-center">
+                      <h2 className="card-title">{item.title}</h2>
+                      <p>{item?.description?.slice(0, 40)}</p>
+                      <div className="card-actions">
+                        <Link
+                          href={`/book-info/${item.id}`}
+                          className="btn btn-primary">
+                          View Now
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
               {booksByGenreTow?.response?.length > 5 && (
-                <Link href="/genre/2">
-                  <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
-                    View All
-                  </h3>
-                </Link>
-              )}
-            </div>
-          ) : null}
-          <div className="divider"></div>
-
-          {booksByGenreThree?.response?.length > 0 ? (
-            <div className="wrapper py-[40px]">
-              <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-                Gener Book.
-              </h2>
-              <div className="flex justify-center items-center flex-wrap">
-                {booksByGenreThree?.response?.map((item: any, key: number) => (
-                  <Card
-                    key={key}
-                    img={item.image}
-                    title={item.title}
-                    price={item.price}
-                    href={`/book-info/${item.id}`}
-                  />
-                ))}
-              </div>
-              {booksByGenreThree?.response?.length > 5 && (
                 <Link href="/genre/2">
                   <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
                     View All

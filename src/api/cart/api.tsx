@@ -19,7 +19,7 @@ const extendedApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
     removeFromCart: builder.mutation<any, { bookId: number }>({
-      query: (bookId) => ({
+      query: ({ bookId }) => ({
         url: `/api/Carts/remove-item-from-cart/${bookId}`,
         method: "DELETE",
       }),

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Footer from "../footer/footer";
 import Navbar from "../navbar/navbar";
+import Aside from "../aside/aside";
 
 interface layoutProps {
   children: React.ReactElement | React.ReactElement[];
@@ -33,6 +34,7 @@ const Layout: React.FC<layoutProps> = (props) => {
   return (
     <>
       <Navbar />
+      {/* <Aside /> */}
       <main>{props.children}</main>
       <Footer />
     </>
