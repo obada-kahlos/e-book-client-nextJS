@@ -49,7 +49,6 @@ const BookInfo = () => {
   const handleAddToCart = () => {
     addToCart({ Amount: counter, BookId: id });
   };
-  console.log({ isSuccess });
   return (
     <>
       {isLoading ? (
@@ -75,12 +74,7 @@ const BookInfo = () => {
                     {bookData?.title}
                   </h1>
                 </div>
-                <p className=" text-[18px] break-words">
-                  <span className="font-[500] dark:text-[#fff]">
-                    Description :
-                  </span>
-                  {bookData?.description}
-                </p>
+                <TextInfo title="Description" desc={bookData?.description} />
                 <div>
                   <span className="dark:text-[#fff] font-[500]">Authors :</span>
                   {bookData?.authors?.length > 0 ? (

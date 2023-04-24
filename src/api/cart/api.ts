@@ -8,10 +8,7 @@ const extendedApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    addToCart: builder.mutation<
-      any,
-      { BookId: string | string[] | undefined; Amount: number }
-    >({
+    addToCart: builder.mutation({
       query: ({ BookId, Amount }) => ({
         url: `/api/Carts/add-to-cart?BookId=${BookId}&Amount=${Amount}`,
         method: "POST",

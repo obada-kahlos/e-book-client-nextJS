@@ -2,66 +2,107 @@ import Card from "@/components/card/card";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetBookByGenreQuery } from "@/api/books/api";
 import Loading from "@/components/loading/loading";
+import {
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
+} from "@/api/cart/api";
+import { toastStatus } from "@/utils/toastify";
+import { useGetUserInfQuery } from "@/api/user/api";
+import {
+  handleAddToWishList,
+  wishListProps,
+} from "@/utils/set-product-id-in-cart";
+import {
+  decrementCart,
+  incrementCart,
+  setCartCount,
+} from "@/app/slices/cart.slice";
+import { useAppDispatch } from "@/app/hooks";
+
+interface BookProps {
+  id: number;
+  image: string;
+  price: number;
+  title: string;
+  description: string;
+}
+
 const MainPage = () => {
-  const books = [
-    {
-      img: "/images/book-one.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-    {
-      img: "/images/2d8478184f3843cc96f277296fcf3966.png.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-    {
-      img: "/images/book-one.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-    {
-      img: "/images/2d8478184f3843cc96f277296fcf3966.png.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-    {
-      img: "/images/book-one.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-  ];
+  const dispatch = useAppDispatch();
 
   const { data: booksByGenreOne, isLoading } = useGetBookByGenreQuery({
     id: 1,
     pageSize: 6,
     pageNumber: 1,
   });
+
+  console.log({ booksByGenreOne });
   const { data: booksByGenreTow } = useGetBookByGenreQuery({
     id: 2,
     pageSize: 6,
     pageNumber: 1,
   });
-  console.log({ booksByGenreTow });
+  const [addToCart, { isSuccess, error, isError, data, reset: resetAdd }] =
+    useAddToCartMutation();
 
-  const { data: booksByGenreThree } = useGetBookByGenreQuery({
-    id: 3,
-    pageSize: 6,
-    pageNumber: 1,
-  });
+  const setProductIdInCart = (id: number) => {
+    const ids = JSON.parse(localStorage.getItem("myIds") || "[]") as number[];
+    if (ids.includes(id)) {
+      const newIds = ids.filter((item) => item !== id);
+      localStorage.setItem("myIds", JSON.stringify(newIds));
+      dispatch(decrementCart(newIds.length));
+    } else {
+      const newIds = [...ids, id];
+      localStorage.setItem("myIds", JSON.stringify(newIds));
+      dispatch(incrementCart(newIds.length));
+    }
+  };
 
-  // const getToken =
-  //   typeof window !== "undefined"
-  //     ? JSON.parse(localStorage.getItem("e-book") as any)
-  //     : null;
-  // const router = useRouter();
-  // useEffect(() => {
-  //   if (!getToken) {
-  //     router.push("login");
-  //   }
-  // }, [getToken]);
+  const handleAddToCart = (id: number) => {
+    addToCart({ Amount: 1, BookId: id });
+    setProductIdInCart(id);
+  };
+  const [
+    removeFromCart,
+    { isSuccess: isSuccessRemoveFromCart, reset: resetRemove },
+  ] = useRemoveFromCartMutation({});
+
+  const handelRemoveFromCart = (id: number) => {
+    removeFromCart({ bookId: id });
+    setProductIdInCart(id);
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastStatus("isSuccess", "Added To Cart successfully");
+    }
+    if (isSuccessRemoveFromCart) {
+      toastStatus("isDeleted", "Removed From Cart successfully");
+    }
+    resetAdd();
+    resetRemove();
+  }, [isSuccess, isSuccessRemoveFromCart]);
+  const { data: clientProfile } = useGetUserInfQuery({});
+
+  const ids =
+    typeof window !== "undefined"
+      ? (JSON.parse(localStorage.getItem("myIds") || "[]") as number[])
+      : null;
+  const localWishList =
+    typeof window !== "undefined"
+      ? (JSON.parse(
+          localStorage.getItem("wishList") || "[]"
+        ) as wishListProps[])
+      : null;
+
+  const [wishList, setWishList] = useState<wishListProps[] | null>();
+  useEffect(() => {
+    setWishList(localWishList);
+  }, []);
+  console.log({ wishList });
 
   return (
     <>
@@ -81,7 +122,7 @@ const MainPage = () => {
             <div className="text-center">
               <div className="max-w-2xl">
                 <h1 className={`md:text-5xl text-4xl font-bold lg:w-12/12`}>
-                  Best Place to Find Your Favorit
+                  Best Place to Find Your Favorite
                   <span className="text-bothColor"> Books.</span>
                 </h1>
                 <p className="py-6">
@@ -111,31 +152,39 @@ const MainPage = () => {
           {booksByGenreOne?.response?.length > 0 ? (
             <div className="wrapper py-[40px]">
               <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-                Gener Book.
+                Genre Book.
               </h2>
-              <div className="flex justify-center gap-4 items-center flex-wrap">
-                {booksByGenreOne?.response?.map((item: any, key: number) => (
-                  <div className="card w-96 bg-base-100 shadow-xl" key={key}>
-                    <figure className="px-5 pt-5">
-                      <img
-                        src={item?.image}
-                        alt={item?.title}
-                        className="rounded-xl w-[50%]"
+              <div className="flex md:justify-between justify-center gap-4 items-center flex-wrap">
+                {booksByGenreOne?.response?.map(
+                  (item: BookProps, key: number) => {
+                    const inLocal = ids ? ids.includes(item.id) : null;
+                    const inWishList = wishList
+                      ? wishList.some((wish) => wish.id === item.id)
+                      : null;
+                    return (
+                      <Card
+                        key={key}
+                        id={item.id}
+                        img={item.image}
+                        price={item.price}
+                        title={item.title}
+                        desc={item.description.slice(0, 50)}
+                        handleAddToCart={() => handleAddToCart(item.id)}
+                        handelRemoveFromCart={() =>
+                          handelRemoveFromCart(item.id)
+                        }
+                        handleAddTpWishList={() =>
+                          handleAddToWishList(
+                            item.id,
+                            booksByGenreOne?.response
+                          )
+                        }
+                        inWishList={inWishList}
+                        inLocal={inLocal as boolean}
                       />
-                    </figure>
-                    <div className="card-body items-center text-center">
-                      <h2 className="card-title">{item.title}</h2>
-                      <p>{item?.description?.slice(0, 40)}</p>
-                      <div className="card-actions">
-                        <Link
-                          href={`/book-info/${item.id}`}
-                          className="btn btn-primary">
-                          View Now
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                    );
+                  }
+                )}
               </div>
               {booksByGenreOne?.response?.length > 5 && (
                 <Link href="/genre/1">
@@ -145,36 +194,39 @@ const MainPage = () => {
                 </Link>
               )}
             </div>
-          ) : null}
+          ) : (
+            <div className="h-[70vh] flex justify-center items-center w-full text-bothColor md:text-[40px] text-[22px]">
+              No Data! Something went wrong!...
+            </div>
+          )}
 
           {booksByGenreTow?.response?.length > 0 ? (
             <div className="wrapper py-[40px]">
               <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
-                Gener Book.
+                Genre Book.
               </h2>
-              <div className="flex justify-center gap-4 items-center flex-wrap">
-                {booksByGenreTow?.response?.map((item: any, key: number) => (
-                  <div className="card w-96 bg-base-100 shadow-xl" key={key}>
-                    <figure className="px-5 pt-5">
-                      <img
-                        src={item?.image}
-                        alt={item?.title}
-                        className="rounded-xl w-[50%]"
+              <div className="flex md:justify-between justify-center gap-4 items-center flex-wrap">
+                {booksByGenreTow?.response?.map(
+                  (item: BookProps, key: number) => {
+                    const inLocal = ids ? ids.includes(item.id) : null;
+                    return (
+                      <Card
+                        key={key}
+                        id={item.id}
+                        img={item.image}
+                        price={item.price}
+                        title={item.title}
+                        inLocal={inLocal as boolean}
+                        handleAddToCart={() => handleAddToCart(item.id)}
+                        handelRemoveFromCart={() =>
+                          handelRemoveFromCart(item.id)
+                        }
+                        // handleAddTpWishList={() => setProductInCart(item.id)}
+                        desc={item.description.slice(0, 50)}
                       />
-                    </figure>
-                    <div className="card-body items-center text-center">
-                      <h2 className="card-title">{item.title}</h2>
-                      <p>{item?.description?.slice(0, 40)}</p>
-                      <div className="card-actions">
-                        <Link
-                          href={`/book-info/${item.id}`}
-                          className="btn btn-primary">
-                          View Now
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                    );
+                  }
+                )}
               </div>
               {booksByGenreTow?.response?.length > 5 && (
                 <Link href="/genre/2">

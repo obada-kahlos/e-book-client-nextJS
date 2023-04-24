@@ -14,27 +14,19 @@ const Layout: React.FC<layoutProps> = (props) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [tokenData, setTokenData] = useState();
   const getToken =
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("e-book") as any)
       : null;
-  useEffect(() => {
-    if (getToken !== null) {
-      setTokenData(getToken);
-    }
-  }, [router]);
 
-  // setTokenData(getToken?.token);
-  console.log({ tokenData });
   useEffect(() => {
     dispatch(setToken(getToken?.token));
-  }, [dispatch, router, getToken]);
+  }, [router]);
 
   return (
     <>
       <Navbar />
-      {/* <Aside /> */}
+      <Aside />
       <main>{props.children}</main>
       <Footer />
     </>

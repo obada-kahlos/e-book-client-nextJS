@@ -2,24 +2,39 @@ import { useGetCartBookQuery, useRemoveFromCartMutation } from "@/api/cart/api";
 import Card from "@/components/card/card";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { BsCartCheck } from "react-icons/bs";
+import { setProductIdInCart } from "@/utils/set-product-id-in-cart";
+import { toastStatus } from "@/utils/toastify";
 const Cart = () => {
   const { data, refetch } = useGetCartBookQuery({});
-  const [removeFromCart, { isSuccess }] = useRemoveFromCartMutation({});
-  console.log(isSuccess);
+  const router = useRouter();
 
-  const handelRemoveFromCart = (bookId: number) => {
-    removeFromCart({ bookId });
+  const [
+    removeFromCart,
+    { isSuccess: isSuccessRemoveFromCart, reset: resetRemove },
+  ] = useRemoveFromCartMutation({});
+
+  const handelRemoveFromCart = (id: number) => {
+    removeFromCart({ bookId: id });
+    setProductIdInCart(id);
   };
 
-  console.log({ data });
-  const route = useRouter();
+  const ids =
+    typeof window !== "undefined"
+      ? (JSON.parse(localStorage.getItem("myIds") || "[]") as number[])
+      : null;
+
   useEffect(() => {
+    if (isSuccessRemoveFromCart) {
+      toastStatus("isDeleted", "Removed From Cart successfully");
+    }
     refetch();
-  }, [route, isSuccess]);
+    resetRemove();
+  }, [isSuccessRemoveFromCart, router]);
+
   return (
     <>
       <Head>
@@ -31,6 +46,9 @@ const Cart = () => {
       <div className="wrapper mt-10">
         {data?.response?.length > 0 ? (
           <>
+            <h2 className="md:text-[30px] text-[20px] my-4">
+              Items In Cart : {data?.response?.length}
+            </h2>
             <div className="overflow-x-auto my-[40px]">
               <table className="table w-full">
                 <thead>
@@ -51,6 +69,7 @@ const Cart = () => {
                         bookPhoto: string;
                         bookName: string;
                         price: number;
+
                         amount: number;
                       },
                       key: number
@@ -69,7 +88,9 @@ const Cart = () => {
                         <td> {item?.amount} </td>
                         <td>
                           <div className="flex gap-2">
-                            <button className="btn gap-2">
+                            <button
+                              className="btn gap-2"
+                              onClick={() => handelRemoveFromCart(item.bookId)}>
                               <IoCloseCircleOutline className="text-[20px]" />
                             </button>
                             <button className="btn gap-2">

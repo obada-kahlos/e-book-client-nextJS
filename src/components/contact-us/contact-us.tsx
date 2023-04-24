@@ -50,11 +50,7 @@ const ContactUs = () => {
             tutorial, you can send me message from here. It is my pleasure to
             help you.
           </p>
-          <Formik
-            initialValues={{}}
-            onSubmit={(values) => {
-              console.log(values);
-            }}>
+          <Formik initialValues={{}} onSubmit={(values) => {}}>
             <Form>
               <Field
                 type={"text"}

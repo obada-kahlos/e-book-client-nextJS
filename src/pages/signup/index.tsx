@@ -8,8 +8,11 @@ import { useSignUpMutation } from "@/api/register/api";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { E164Number } from "libphonenumber-js/types";
+import { setToken } from "@/app/slices/autoSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 const Signup = () => {
+  const dispatch = useAppDispatch();
   const [phone, setPhone] = useState<E164Number | undefined>();
   const signupData = [
     {
@@ -58,13 +61,12 @@ const Signup = () => {
 
   const [signUp, { isLoading, data, isSuccess, error }]: any =
     useSignUpMutation({});
-  // console.log({ error });
 
   if (isSuccess) localStorage.setItem("e-book", JSON.stringify(data));
-  // console.log({ isSuccess });
 
   useEffect(() => {
     if (isSuccess) {
+      dispatch(setToken(data?.token));
       router.push("/main-page");
     }
   }, [isSuccess]);
@@ -79,7 +81,6 @@ const Signup = () => {
   //     setToken(getToken);
   //   }
   // }, []);
-  // console.log({ token });
 
   const handleSginUp = (values: any) => {
     signUp({
@@ -122,7 +123,7 @@ const Signup = () => {
               <Form>
                 <div className="card-body">
                   <div className="md:grid block grid-cols-12 gap-1">
-                    {signupData.map((item, key) => (
+                    {signupData?.map((item, key) => (
                       <div className={`${item.grid}`} key={key}>
                         <div className="form-control">
                           <label className="label">
