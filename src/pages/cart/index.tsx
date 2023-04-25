@@ -6,26 +6,36 @@ import { Router, useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { BsCartCheck } from "react-icons/bs";
-import { setProductIdInCart } from "@/utils/set-product-id-in-cart";
 import { toastStatus } from "@/utils/toastify";
+import { decrementCart, incrementCart } from "@/app/slices/cart.slice";
+import { useAppDispatch } from "@/app/hooks";
 const Cart = () => {
+  const dispatch = useAppDispatch();
   const { data, refetch } = useGetCartBookQuery({});
   const router = useRouter();
-
+  console.log({ data });
   const [
     removeFromCart,
     { isSuccess: isSuccessRemoveFromCart, reset: resetRemove },
   ] = useRemoveFromCartMutation({});
 
-  const handelRemoveFromCart = (id: number) => {
-    removeFromCart({ bookId: id });
-    setProductIdInCart(id);
+  const setProductIdInCart = (id: number) => {
+    const ids = JSON.parse(localStorage.getItem("myIds") || "[]") as number[];
+    if (ids.includes(id)) {
+      const newIds = ids.filter((item) => item !== id);
+      localStorage.setItem("myIds", JSON.stringify(newIds));
+      dispatch(decrementCart(newIds.length));
+    } else {
+      const newIds = [...ids, id];
+      localStorage.setItem("myIds", JSON.stringify(newIds));
+      dispatch(incrementCart(newIds.length));
+    }
   };
 
-  const ids =
-    typeof window !== "undefined"
-      ? (JSON.parse(localStorage.getItem("myIds") || "[]") as number[])
-      : null;
+  const handleRemoveItemFromCart = (id: number) => {
+    removeFromCart({ bookId: id });
+    isSuccessRemoveFromCart && setProductIdInCart(id);
+  };
 
   useEffect(() => {
     if (isSuccessRemoveFromCart) {
@@ -33,7 +43,7 @@ const Cart = () => {
     }
     refetch();
     resetRemove();
-  }, [isSuccessRemoveFromCart, router]);
+  }, [isSuccessRemoveFromCart, router, refetch, resetRemove]);
 
   return (
     <>
@@ -90,7 +100,9 @@ const Cart = () => {
                           <div className="flex gap-2">
                             <button
                               className="btn gap-2"
-                              onClick={() => handelRemoveFromCart(item.bookId)}>
+                              onClick={() =>
+                                handleRemoveItemFromCart(item.bookId)
+                              }>
                               <IoCloseCircleOutline className="text-[20px]" />
                             </button>
                             <button className="btn gap-2">

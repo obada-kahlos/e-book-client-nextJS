@@ -5,7 +5,7 @@ import Link from "next/link";
 import Loading from "@/components/loading/loading";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/app/hooks";
-import { setToken } from "@/app/slices/autoSlice";
+import { setToken } from "@/app/slices/authSlice";
 
 export default function Home() {
   const dispatch = useAppDispatch();

@@ -13,7 +13,12 @@ import {
 import { toastStatus } from "@/utils/toastify";
 import { decrementCart } from "@/app/slices/cart.slice";
 import { incrementCart } from "@/app/slices/cart.slice";
-import { useAppDispatch } from "@/app/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import {
+  decrementWish,
+  incrementWish,
+  setWishList,
+} from "@/app/slices/wishList.slice";
 interface BookProps {
   id: number;
   image: string;
@@ -21,6 +26,13 @@ interface BookProps {
   title: string;
   description: string;
 }
+interface wishListProps {
+  id: number;
+  title: string;
+  image: string;
+  price: string;
+}
+
 const Products = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -56,6 +68,24 @@ const Products = () => {
     setProductIdInCart(id);
   };
 
+  const handleAddToWishList = (id: number, array: wishListProps[]) => {
+    const storedArray = JSON.parse(localStorage.getItem("wishList") || "[]");
+    const itemObject = array.find((item) => item.id === id);
+
+    if (storedArray.some((item: wishListProps) => item.id === id)) {
+      const updatedArray = storedArray.filter(
+        (item: wishListProps) => item.id !== id
+      );
+      localStorage.setItem("wishList", JSON.stringify(updatedArray));
+      dispatch(incrementWish(updatedArray.length));
+    } else {
+      storedArray.push(itemObject);
+      localStorage.setItem("wishList", JSON.stringify(storedArray));
+      dispatch(decrementWish(storedArray.length));
+      dispatch(setWishList(itemObject));
+    }
+  };
+
   const [
     removeFromCart,
     { isSuccess: isSuccessRemoveFromCart, reset: resetRemove },
@@ -76,6 +106,7 @@ const Products = () => {
     resetAdd();
     resetRemove();
   }, [isSuccess, isSuccessRemoveFromCart]);
+  const wishList = useAppSelector((state) => state.wishList.wishLists);
 
   const ids =
     typeof window !== "undefined"
@@ -117,6 +148,9 @@ const Products = () => {
           <div className="flex md:justify-between justify-center gap-4 items-center flex-wrap">
             {data?.response?.map((item: BookProps, key: number) => {
               const inLocal = ids ? ids.includes(item.id) : null;
+              const inWishList = wishList
+                ? wishList.some((wish) => wish.id === item.id)
+                : null;
               return (
                 <Card
                   key={key}
@@ -125,7 +159,11 @@ const Products = () => {
                   price={item.price}
                   handleAddToCart={() => handleAddToCart(item.id)}
                   handelRemoveFromCart={() => handelRemoveFromCart(item.id)}
+                  inWishList={inWishList}
                   id={item.id}
+                  handleAddTpWishList={() =>
+                    handleAddToWishList(item.id, data?.response)
+                  }
                   inLocal={inLocal as boolean}
                 />
               );

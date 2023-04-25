@@ -1,4 +1,4 @@
-import { setToken } from "@/app/slices/autoSlice";
+import { setToken } from "@/app/slices/authSlice";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";

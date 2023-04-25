@@ -8,7 +8,7 @@ import { useSignUpMutation } from "@/api/register/api";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { E164Number } from "libphonenumber-js/types";
-import { setToken } from "@/app/slices/autoSlice";
+import { setToken } from "@/app/slices/authSlice";
 import { useAppDispatch } from "@/app/hooks";
 
 const Signup = () => {
