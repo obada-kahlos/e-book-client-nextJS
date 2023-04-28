@@ -50,37 +50,55 @@ const Aside = () => {
             <AiOutlineArrowRight />
           </span>
         </div>
-        {wishList?.map((wishItem, key) => {
-          return (
-            <div className="p-2" key={key}>
-              <div className="w-full flex justify-center items-center flex-col text-center gap-1 py-2">
-                <img
-                  src={wishItem.image}
-                  alt={wishItem.title}
-                  className="w-[120px] rounded-sm"
-                />
-                <h3> {wishItem.title} </h3>
-                <p>{wishItem?.description}</p>
-                <h3> {wishItem.price} </h3>
-                <div className="flex gap-2">
-                  <Link
-                    onClick={() => dispatch(toggleWishList())}
-                    href={`/book-info/${wishItem.id}`}
-                    className="btn btn-info btn-outline btn-circle text-[18px]">
-                    <AiOutlineEye />
-                  </Link>
-                  <span
-                    onClick={() => handleAddToWishList(wishItem.id, wishList)}
-                    className={`btn btn-error btn-outline btn-circle text-[18px]`}>
-                    <AiOutlineDelete />
-                  </span>
+
+        {wishList?.length > 0 ? (
+          <>
+            {wishList?.map((wishItem, key) => {
+              return (
+                <div className="p-2" key={key}>
+                  <div className="w-full flex justify-center items-center flex-col text-center gap-1 py-2">
+                    <img
+                      src={wishItem.image}
+                      alt={wishItem.title}
+                      className="w-[120px] rounded-sm"
+                    />
+                    <h3> {wishItem.title} </h3>
+                    <p>{wishItem?.description}</p>
+                    <h3> {wishItem.price} </h3>
+                    <div className="flex gap-2">
+                      <Link
+                        onClick={() => dispatch(toggleWishList())}
+                        href={`/book-info/${wishItem.id}`}
+                        className="btn btn-info btn-outline btn-circle text-[18px]">
+                        <AiOutlineEye />
+                      </Link>
+                      <span
+                        onClick={() =>
+                          handleAddToWishList(wishItem.id, wishList)
+                        }
+                        className={`btn btn-error btn-outline btn-circle text-[18px]`}>
+                        <AiOutlineDelete />
+                      </span>
+                    </div>
+                  </div>
+                  <div className="divider"></div>
                 </div>
-              </div>
-              <div className="divider"></div>
-            </div>
-          );
-        })}
+              );
+            })}
+          </>
+        ) : (
+          <div className="h-[calc(100vh-65px)] text-yellow-500 font-bold text-[24px] text-center flex justify-center items-center text-ellipsis">
+            Your Wish List Is Empty.
+          </div>
+        )}
       </aside>
+      <>
+        {toggle && (
+          <div
+            className="fixed z-[999] top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.1)]"
+            onClick={() => dispatch(toggleWishList())}></div>
+        )}
+      </>
       <style>
         {`
             aside.wish-list{
@@ -89,11 +107,11 @@ const Aside = () => {
                 right : ${toggle ? "0%" : "-200%"};
                 width : 400px;
                 height : 100vh;
-                z-index : 99999;
                 overflow-y : auto;
                 overflow-x : hidden;
                 box-shadow: -10px 0px 10px 1px rgba(170, 170, 170,0.4);
                 transition: 0.3s ease;
+                z-index : 999999;
             }
             aside.wish-list::-webkit-scrollbar{
               display : none

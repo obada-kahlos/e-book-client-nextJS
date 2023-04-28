@@ -3,6 +3,8 @@ import { useAppDispatch } from "@/app/hooks";
 import { useRouter } from "next/router";
 import { setToken } from "@/app/slices/authSlice";
 import Link from "next/link";
+import { setProfileData } from "@/app/slices/user.slice";
+import { useGetUserInfQuery } from "@/api/user/api";
 
 const Index = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +17,11 @@ const Index = () => {
   useEffect(() => {
     dispatch(setToken(getToken?.token));
   }, [router, dispatch, getToken]);
+
+  const { data: profileData } = useGetUserInfQuery({});
+  useEffect(() => {
+    dispatch(setProfileData(profileData));
+  }, [dispatch, profileData]);
 
   return (
     <>

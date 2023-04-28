@@ -89,21 +89,20 @@ const BookInfo = () => {
       ) : (
         <div className="wrapper">
           <div className="dark:shadow-blackShadow bg-base-100 my-[30px] rounded-3xl shadow-xl py-[30px] md:px-[40px] px-[10px] ">
-            <h1 className="md:text-[30px] text-[24px] text-[#fff]">
+            <h1 className="md:text-[30px] text-[24px] font-[600]">
               Product Info.
             </h1>
-            <div className="sm:grid grid-cols-12 gap-4 my-[20px] ">
+            <div className="sm:grid grid-cols-12 gap-8 my-[20px] ">
               <div className="xl:col-span-2 lg:col-span-3 sm:col-span-4 col-span-12 relative">
-                <Image
+                <img
                   src={bookData?.image}
                   alt={bookData?.title}
-                  fill
-                  className="mx-auto object-cover cursor-pointer rounded-md"
+                  className="mx-auto w-[200px] object-cover cursor-pointer rounded-md"
                 />
               </div>
               <div className="xl:col-span-9 lg:col-span-9 sm:col-span-8 col-span-12 md:my-0 my-4">
                 <div className="flex justify-between md:items-center items-start md:flex-row flex-col">
-                  <h1 className="md:text-[30px] text-[24px] text-[#fff]">
+                  <h1 className="md:text-[30px] text-[24px] font-[500]">
                     {bookData?.title}
                   </h1>
                 </div>

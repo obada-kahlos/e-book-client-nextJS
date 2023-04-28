@@ -27,12 +27,10 @@ const Card: React.FC<cardProps> = ({ ...props }) => {
   return (
     <div className="card w-[300px] bg-base-100 shadow-xl">
       <figure className="px-5 pt-5">
-        <Image
+        <img
           src={props.img}
           alt={props.title}
-          width={120}
-          height={120}
-          className="rounded-xl w-[50%]"
+          className="rounded-xl w-[60%] h-[200px]"
         />
       </figure>
       <div className="card-body items-center text-center">

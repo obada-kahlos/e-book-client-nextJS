@@ -158,7 +158,9 @@ const MainPage = () => {
                   facilis libero dolore vero quae. Sint, impedit beatae
                   similique distinctio nihil recusandae. Itaque!
                 </p>
-                <button className="btn btn-primary">Get Started</button>
+                <a href={"#books"}>
+                  <button className="btn btn-primary">Fiend Your Book</button>
+                </a>
               </div>
             </div>
           </div>
@@ -177,7 +179,7 @@ const MainPage = () => {
           </div>
           <div className="divider"></div>
           {booksByGenreOne?.response?.length > 0 ? (
-            <div className="wrapper py-[40px]">
+            <div className="wrapper py-[40px]" id={"books"}>
               <h2 className="md:text-[32px] text-[18px] text-bothColor my-[20px]">
                 Genre Book.
               </h2>
@@ -215,9 +217,9 @@ const MainPage = () => {
               </div>
               {booksByGenreOne?.response?.length > 5 && (
                 <Link href="/genre/1">
-                  <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                  <button className="cursor-pointer btn btn-outline block ml-auto my-[20px] text-bothColor">
                     View All
-                  </h3>
+                  </button>
                 </Link>
               )}
             </div>
@@ -266,9 +268,9 @@ const MainPage = () => {
               </div>
               {booksByGenreTow?.response?.length > 5 && (
                 <Link href="/genre/2">
-                  <h3 className="cursor-pointer text-end my-[20px] text-bothColor">
+                  <button className="cursor-pointer btn btn-outline block ml-auto my-[20px] text-bothColor">
                     View All
-                  </h3>
+                  </button>
                 </Link>
               )}
             </div>

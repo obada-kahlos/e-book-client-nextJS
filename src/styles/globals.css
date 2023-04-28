@@ -6,6 +6,7 @@
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 html {
   scroll-behavior: smooth;
@@ -14,6 +15,7 @@ html {
 body {
   /* background: #fff; */
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 @keyframes AnimationHero {

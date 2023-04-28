@@ -10,9 +10,11 @@ import { toastStatus } from "@/utils/toastify";
 import { decrementCart, incrementCart } from "@/app/slices/cart.slice";
 import { useAppDispatch } from "@/app/hooks";
 import { setToken } from "@/app/slices/authSlice";
+import Loading from "@/components/loading/loading";
+import { useGetUserInfQuery } from "@/api/user/api";
+import { setProfileData } from "@/app/slices/user.slice";
 const Cart = () => {
   const dispatch = useAppDispatch();
-  const { data, refetch } = useGetCartBookQuery({});
   const router = useRouter();
 
   const getToken =
@@ -22,6 +24,13 @@ const Cart = () => {
   useEffect(() => {
     dispatch(setToken(getToken?.token));
   }, [router, dispatch, getToken]);
+
+  const { data, refetch, isLoading } = useGetCartBookQuery({});
+
+  const { data: profileData } = useGetUserInfQuery({});
+  useEffect(() => {
+    dispatch(setProfileData(profileData));
+  }, [dispatch, profileData]);
 
   const [
     removeFromCart,
@@ -36,10 +45,6 @@ const Cart = () => {
       const newIds = ids.filter((item) => item !== id);
       localStorage.setItem("myIds", JSON.stringify(newIds));
       dispatch(decrementCart(newIds.length));
-    } else {
-      const newIds = [...ids, id];
-      localStorage.setItem("myIds", JSON.stringify(newIds));
-      dispatch(incrementCart(newIds.length));
     }
   };
 
@@ -64,81 +69,85 @@ const Cart = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="wrapper mt-10">
-        {data?.response?.length > 0 ? (
-          <>
-            <h2 className="md:text-[30px] text-[20px] my-4">
-              Items In Cart : {data?.response?.length}
-            </h2>
-            <div className="overflow-x-auto my-[40px]">
-              <table className="table w-full">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Amount</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.response?.map(
-                    (
-                      item: {
-                        bookId: number;
-                        bookPhoto: string;
-                        bookName: string;
-                        price: number;
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="wrapper mt-10">
+          {data?.response?.length > 0 ? (
+            <>
+              <h2 className="md:text-[30px] text-[20px] my-4">
+                Items In Cart : {data?.response?.length}
+              </h2>
+              <div className="overflow-x-auto my-[40px]">
+                <table className="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Image</th>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Amount</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.response?.map(
+                      (
+                        item: {
+                          bookId: number;
+                          bookPhoto: string;
+                          bookName: string;
+                          price: number;
 
-                        amount: number;
-                      },
-                      key: number
-                    ) => (
-                      <tr key={key}>
-                        <td> {item?.bookId} </td>
-                        <td>
-                          <img
-                            src={item?.bookPhoto}
-                            alt=""
-                            className="w-[120px] object-cover"
-                          />
-                        </td>
-                        <td> {item?.bookName} </td>
-                        <td> {item?.price} </td>
-                        <td> {item?.amount} </td>
-                        <td>
-                          <div className="flex gap-2">
-                            <button
-                              className="btn gap-2"
-                              onClick={() =>
-                                handleRemoveItemFromCart(item.bookId)
-                              }>
-                              <IoCloseCircleOutline className="text-[20px]" />
-                            </button>
-                            <button className="btn gap-2">
-                              <BsCartCheck className="text-[20px]" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    )
-                  )}
-                </tbody>
-              </table>
+                          amount: number;
+                        },
+                        key: number
+                      ) => (
+                        <tr key={key}>
+                          <td> {item?.bookId} </td>
+                          <td>
+                            <img
+                              src={item?.bookPhoto}
+                              alt=""
+                              className="w-[200px] object-cover"
+                            />
+                          </td>
+                          <td> {item?.bookName} </td>
+                          <td> {item?.price} </td>
+                          <td> {item?.amount} </td>
+                          <td>
+                            <div className="flex gap-2">
+                              <button
+                                className="btn gap-2"
+                                onClick={() =>
+                                  handleRemoveItemFromCart(item.bookId)
+                                }>
+                                <IoCloseCircleOutline className="text-[20px]" />
+                              </button>
+                              <button className="btn gap-2">
+                                <BsCartCheck className="text-[20px]" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ) : (
+            <div className=" h-[80vh] flex justify-center items-center flex-col">
+              <h1 className="dark:text-[#fff] md:text-[40px] text-[22px]">
+                Your Cart is Empty!
+              </h1>
+              <Link href={"/main-page"} className="btn btn-primary my-[10px]">
+                Add Some
+              </Link>
             </div>
-          </>
-        ) : (
-          <div className=" h-[80vh] flex justify-center items-center flex-col">
-            <h1 className="dark:text-[#fff] md:text-[40px] text-[22px]">
-              Your Cart is Empty!
-            </h1>
-            <Link href={"/main-page"} className="btn btn-primary my-[10px]">
-              Add Some
-            </Link>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </>
   );
 };

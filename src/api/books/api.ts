@@ -23,8 +23,8 @@ const extendedApi = apiSlice.injectEndpoints({
       }),
     }),
     getSearch: builder.query({
-      query: ({ word }) => ({
-        url: `/api/Books/search-of-books?title=${word}&PageNumber=10&PageSize=10`,
+      query: (search) => ({
+        url: `/api/Books/search-of-books?title=string&PageNumber=1&PageSize=10`,
         method: "GET",
       }),
     }),

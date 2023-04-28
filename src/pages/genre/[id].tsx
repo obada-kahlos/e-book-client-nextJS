@@ -180,22 +180,18 @@ const Products = () => {
           </div>
 
           <div className="flex justify-center flex-row gap-3 my-[10px]">
-            <Link href="#nav">
-              <button
-                className="btn btn-circle btn-primary btn-outline"
-                disabled={page === 1 ? true : false}
-                onClick={() => setPage(page - 1)}>
-                <IoArrowBackSharp />
-              </button>
-            </Link>
-            <Link href="#nav" scroll={true}>
-              <button
-                className="btn btn-circle btn-primary btn-outline"
-                disabled={page === data?.metaData?.totalPage ? true : false}
-                onClick={() => setPage(page + 1)}>
-                <IoArrowForwardOutline />
-              </button>
-            </Link>
+            <button
+              className="btn btn-circle btn-primary btn-outline"
+              disabled={page === 1 ? true : false}
+              onClick={() => setPage(page - 1)}>
+              <IoArrowBackSharp />
+            </button>
+            <button
+              className="btn btn-circle btn-primary btn-outline"
+              disabled={page === data?.metaData?.totalPage ? true : false}
+              onClick={() => setPage(page + 1)}>
+              <IoArrowForwardOutline />
+            </button>
           </div>
         </div>
       )}

@@ -39,6 +39,9 @@ const Layout: React.FC<layoutProps> = (props) => {
       ? JSON.parse(localStorage.getItem("e-book") as any)
       : null;
 
+  useEffect(() => {
+    dispatch(setToken(getToken?.token));
+  }, [router, dispatch, getToken]);
   // const {
   //   data: refreshToken,
   //   isLoading: isLoadingRefreshToken,
@@ -46,12 +49,6 @@ const Layout: React.FC<layoutProps> = (props) => {
   //   error: errorRefreshToken,
   // } = useRefreshTokenQuery({});
   // console.log({ refreshToken });
-
-  console.log({ getToken });
-
-  useEffect(() => {
-    dispatch(setToken(getToken?.token));
-  }, [router, dispatch, getToken]);
 
   const isOpen = useAppSelector((state) => state.user.isOpen);
   const isEdit = useAppSelector((state) => state.user.isEdit);
@@ -169,7 +166,7 @@ const Layout: React.FC<layoutProps> = (props) => {
                 src={
                   profilePopupData?.profilePhoto
                     ? profilePopupData?.profilePhoto
-                    : "/images/avatar.jpg"
+                    : "/images/avatar.jpeg"
                 }
                 alt="User-Image"
                 className="w-[180px] h-[180px] rounded-full object-cover"
@@ -214,18 +211,20 @@ const Layout: React.FC<layoutProps> = (props) => {
             editProfile(values);
           }}>
           <Form>
-            <div className="p-2 grid grid-cols-12 gap-2 w-full">
+            <div className="p-4 grid grid-cols-12 gap-2 w-full">
               {profileInputData?.map((phoneData, key) => {
                 return (
                   <div className={`${phoneData.grid} form-control`} key={key}>
                     <label className="label">
-                      <span className="label-text">{phoneData.label}</span>
+                      <span className="label-text text-[18px] font-[500]">
+                        {phoneData.label}
+                      </span>
                     </label>
                     <Field
                       type={phoneData.type}
                       placeholder={phoneData.placeholder}
                       name={phoneData.name}
-                      className="input input-bordered input-md"
+                      className="input input-bordered input-primary w-full max-w-xs"
                       disabled={phoneData.disabled}
                     />
                   </div>
@@ -234,11 +233,13 @@ const Layout: React.FC<layoutProps> = (props) => {
               <div className="col-span-12">
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Select Your Gender</span>
+                    <span className="label-text text-[18px] font-[500]">
+                      Select Your Gender
+                    </span>
                   </label>
                   <Field
                     as="select"
-                    className="select select-bordered"
+                    className="select select-primary w-full"
                     name="gender">
                     <option disabled selected>
                       Pick one
@@ -280,7 +281,7 @@ const Layout: React.FC<layoutProps> = (props) => {
       <Aside />
       <main>{props.children}</main>
       <Footer />
-      <div className="w-64 md:w-96 h-96 md:h-full bg-blue-200 bg-opacity-30 absolute -top-64 md:-top-96 left-20 md:right-32 rounded-full pointer-events-none -rotate-45 transform"></div>
+      <div className="w-64 md:w-96 h-96 md:h-full bg-blue-200 bg-opacity-30 absolute -top-64 md:-top-96 left-20 md:right-32 rounded-full pointer-events-none -rotate-45 transform -z-[0]"></div>
     </>
   );
 };
