@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import ImageComponent from "@/components/img/image";
 import TextInfo from "@/components/text-info/text-info";
@@ -10,45 +10,78 @@ import { useGetBookByIdQuery } from "@/api/books/api";
 import Loading from "@/components/loading/loading";
 import Image from "next/image";
 import Counter from "@/components/counter/counter";
-import { useAddToCartMutation } from "@/api/cart/api";
+import {
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
+} from "@/api/cart/api";
+import { decrementCart, incrementCart } from "@/app/slices/cart.slice";
+import { useAppDispatch } from "@/app/hooks";
+import { toastStatus } from "@/utils/toastify";
+import { setToken } from "@/app/slices/authSlice";
 const BookInfo = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const { id } = router.query;
   const { data: bookData, isLoading } = useGetBookByIdQuery(id);
-  const books = [
-    {
-      img: "/images/book-one.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-    {
-      img: "/images/2d8478184f3843cc96f277296fcf3966.png.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-    {
-      img: "/images/book-one.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-    {
-      img: "/images/2d8478184f3843cc96f277296fcf3966.png.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-    {
-      img: "/images/book-one.jpg",
-      title: "Book's Name.",
-      price: "12300$",
-    },
-  ];
+  console.log({ bookData });
+
+  const getToken =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("e-book") as any)
+      : null;
+  useEffect(() => {
+    dispatch(setToken(getToken?.token));
+  }, [router, dispatch, getToken]);
 
   const [counter, setCounter] = useState<number>(1);
 
-  const [addToCart, { isSuccess }] = useAddToCartMutation();
-  const handleAddToCart = () => {
-    addToCart({ Amount: counter, BookId: id });
+  const setProductIdInCart = (id: number) => {
+    const ids = JSON.parse(localStorage.getItem("myIds") || "[]") as number[];
+    if (ids.includes(id)) {
+      const newIds = ids.filter((item) => item !== id);
+      localStorage.setItem("myIds", JSON.stringify(newIds));
+      dispatch(decrementCart(newIds.length));
+    } else {
+      const newIds = [...ids, id];
+      localStorage.setItem("myIds", JSON.stringify(newIds));
+      dispatch(incrementCart(newIds.length));
+    }
   };
+
+  const [addToCart, { isSuccess, reset }] = useAddToCartMutation();
+  const handleAddToCart = (id: number) => {
+    addToCart({ Amount: counter, BookId: id });
+    setProductIdInCart(id);
+  };
+
+  const [
+    removeFromCart,
+    { isSuccess: isSuccessRemoveFromCart, reset: resetRemove },
+  ] = useRemoveFromCartMutation({});
+
+  const handelRemoveFromCart = (id: number) => {
+    removeFromCart({ bookId: id });
+    setProductIdInCart(id);
+  };
+
+  const ids =
+    typeof window !== "undefined"
+      ? (JSON.parse(localStorage.getItem("myIds") || "[]") as number[])
+      : null;
+
+  const [itemId, setItemId] = useState<boolean | null>(false);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastStatus("isSuccess", "Added To Cart successfully");
+    }
+    if (isSuccessRemoveFromCart) {
+      toastStatus("isDeleted", "Removed From Cart successfully");
+    }
+    reset();
+    resetRemove();
+  }, [isSuccess, isSuccessRemoveFromCart]);
+
   return (
     <>
       {isLoading ? (
@@ -109,7 +142,12 @@ const BookInfo = () => {
                     </span>
                     <span
                       className="sm:block hidden"
-                      onClick={() => handleAddToCart()}>
+                      onClick={() => {
+                        const inLocal = ids ? ids.includes(bookData.id) : null;
+                        inLocal
+                          ? handleAddToCart(bookData?.id)
+                          : handelRemoveFromCart(bookData?.id);
+                      }}>
                       Add To Cart
                     </span>
                   </button>

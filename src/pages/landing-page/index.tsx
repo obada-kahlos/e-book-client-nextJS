@@ -114,8 +114,8 @@ const LandingPage = () => {
           <div className="hero-content lg:flex-row flex-col">
             <div className="md:text-left text-center">
               <h1
-                className={`wrraper-animation-first md:text-5xl text-4xl font-bold lg:w-8/12`}>
-                Best Place to Find Your Favorit
+                className={`wrraper-animation-first md:text-5xl text-4xl font-bold lg:w-8/12 text-yellow-500`}>
+                Best Place to Find Your Favorite
                 <span className="text-bothColor"> Books.</span>
               </h1>
               <p className="wrraper-animation-secound uppercase py-6">

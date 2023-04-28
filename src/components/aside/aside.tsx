@@ -35,20 +35,18 @@ const Aside = () => {
     } else {
       storedArray.push(itemObject);
       localStorage.setItem("wishList", JSON.stringify(storedArray));
-      console.log({ itemObject });
       dispatch(decrementWish(storedArray.length));
     }
   };
 
-  console.log({ wishList });
   return (
     <>
       <aside className="wish-list bg-base-100 shadow-lg">
         <div className="header">
-          <p className="text-[#fff] font-bold"> Wish List </p>
+          <p className="font-bold"> Wish List </p>
           <span
             onClick={() => dispatch(toggleWishList())}
-            className="btn btn-ghost btn-circle text-[#fff]">
+            className="btn btn-ghost btn-circle ">
             <AiOutlineArrowRight />
           </span>
         </div>
@@ -78,7 +76,7 @@ const Aside = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-full h-[1px] bg-[rgba(255,255,255,0.7)]"></div>
+              <div className="divider"></div>
             </div>
           );
         })}
@@ -94,6 +92,7 @@ const Aside = () => {
                 z-index : 99999;
                 overflow-y : auto;
                 overflow-x : hidden;
+                box-shadow: -10px 0px 10px 1px rgba(170, 170, 170,0.4);
                 transition: 0.3s ease;
             }
             aside.wish-list::-webkit-scrollbar{
@@ -105,7 +104,7 @@ const Aside = () => {
                 display : flex; 
                 justify-content : space-between;
                 align-items: center;
-                border-bottom : 1px solid #ffffff;
+                border-bottom : 1px solid #333;
             }   
             `}
       </style>

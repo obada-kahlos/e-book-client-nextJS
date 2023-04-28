@@ -22,8 +22,18 @@ const extendedApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getSearch: builder.query({
+      query: ({ word }) => ({
+        url: `/api/Books/search-of-books?title=${word}&PageNumber=10&PageSize=10`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetBookByGenreQuery, useGetBookByIdQuery, useGetGenreQuery } =
-  extendedApi;
+export const {
+  useGetBookByGenreQuery,
+  useGetBookByIdQuery,
+  useGetGenreQuery,
+  useGetSearchQuery,
+} = extendedApi;

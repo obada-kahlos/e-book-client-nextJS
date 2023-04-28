@@ -19,6 +19,7 @@ import {
   incrementWish,
   setWishList,
 } from "@/app/slices/wishList.slice";
+import { setToken } from "@/app/slices/authSlice";
 interface BookProps {
   id: number;
   image: string;
@@ -43,6 +44,14 @@ const Products = () => {
     pageSize: 30,
     pageNumber: page,
   });
+
+  const getToken =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("e-book") as any)
+      : null;
+  useEffect(() => {
+    dispatch(setToken(getToken?.token));
+  }, [router, dispatch, getToken]);
 
   const { data: genreData } = useGetGenreQuery({});
   const { asPath } = useRouter();
@@ -70,7 +79,7 @@ const Products = () => {
 
   const handleAddToWishList = (id: number, array: wishListProps[]) => {
     const storedArray = JSON.parse(localStorage.getItem("wishList") || "[]");
-    const itemObject = array.find((item) => item.id === id);
+    const itemObject: any = array.find((item) => item.id === id);
 
     if (storedArray.some((item: wishListProps) => item.id === id)) {
       const updatedArray = storedArray.filter(

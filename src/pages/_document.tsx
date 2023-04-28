@@ -3,9 +3,9 @@ import { useState } from "react";
 
 export default function Document() {
   return (
-    <Html lang="en" className="dark">
+    <Html lang="en" className="">
       <Head></Head>
-      <body className="dark:bg-dark-bgColor bg-light-bgColor overflow-x-hidden">
+      <body className="dark:bg-gray-800 bg-blue-100 overflow-x-hidden">
         <Main />
         <NextScript />
       </body>

@@ -39,6 +39,9 @@ const wishListSlice = createSlice({
           : null;
       state.count = localWishList?.length;
     },
+    resetWishCount(state) {
+      state.count = 0;
+    },
     incrementWish(state, action) {
       state.count = action.payload;
     },
@@ -70,6 +73,7 @@ export const {
   setWishCount,
   setWishList,
   removeItemWishList,
+  resetWishCount,
   // addToWishList,
 } = wishListSlice.actions;
 export default wishListSlice.reducer;

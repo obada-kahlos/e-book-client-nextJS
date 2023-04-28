@@ -9,15 +9,26 @@ import { BsCartCheck } from "react-icons/bs";
 import { toastStatus } from "@/utils/toastify";
 import { decrementCart, incrementCart } from "@/app/slices/cart.slice";
 import { useAppDispatch } from "@/app/hooks";
+import { setToken } from "@/app/slices/authSlice";
 const Cart = () => {
   const dispatch = useAppDispatch();
   const { data, refetch } = useGetCartBookQuery({});
   const router = useRouter();
-  console.log({ data });
+
+  const getToken =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("e-book") as any)
+      : null;
+  useEffect(() => {
+    dispatch(setToken(getToken?.token));
+  }, [router, dispatch, getToken]);
+
   const [
     removeFromCart,
     { isSuccess: isSuccessRemoveFromCart, reset: resetRemove },
   ] = useRemoveFromCartMutation({});
+
+  console.log({ isSuccessRemoveFromCart });
 
   const setProductIdInCart = (id: number) => {
     const ids = JSON.parse(localStorage.getItem("myIds") || "[]") as number[];
@@ -34,7 +45,7 @@ const Cart = () => {
 
   const handleRemoveItemFromCart = (id: number) => {
     removeFromCart({ bookId: id });
-    isSuccessRemoveFromCart && setProductIdInCart(id);
+    setProductIdInCart(id);
   };
 
   useEffect(() => {

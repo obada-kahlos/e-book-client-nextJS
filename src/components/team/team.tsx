@@ -8,6 +8,7 @@ interface teamProps {
   specialization: string;
   img: string;
   href: string;
+  phoneNumber: string;
 }
 
 const Team: React.FC<teamProps> = (props) => {
@@ -16,8 +17,7 @@ const Team: React.FC<teamProps> = (props) => {
       href={props.href}
       target="_blank"
       rel="noreferrer"
-      className="transition-all rounded-xl hover:dark:shadow-blackShadow hover:shadow-xl py-[20px] flex flex-col items-center justify-center text-center cursor-pointer"
-    >
+      className="transition-all rounded-xl hover:dark:shadow-blackShadow hover:shadow-xl py-[20px] flex flex-col items-center justify-center text-center cursor-pointer">
       <div className="lg:w-[300px] lg:h-[300px] w-[240px] h-[240px] rounded-full overflow-hidden border-[5px] border-bothColor">
         <img
           src={props.img}
@@ -34,9 +34,11 @@ const Team: React.FC<teamProps> = (props) => {
         <button className="btn btn-circle text-[18px]">
           <IoLogoFacebook />
         </button>
-        <button className="btn btn-circle text-[18px]">
-          <IoLogoWhatsapp />
-        </button>
+        <div className="tooltip" data-tip={props.phoneNumber}>
+          <button className="btn btn-circle text-[18px]">
+            <IoLogoWhatsapp />
+          </button>
+        </div>
         <button className="btn btn-circle text-[18px]">
           <IoLogoGithub />
         </button>

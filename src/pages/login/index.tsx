@@ -5,9 +5,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
 import { useLoginMutation } from "@/api/register/api";
 import { useRouter } from "next/router";
-import Popup from "@/components/popup/popup";
+import { setToken } from "@/app/slices/authSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 const Login = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const schema = yup.object().shape({
     email: yup.string().required("This field is required"),
     password: yup
@@ -17,17 +20,6 @@ const Login = () => {
       .required("This field is required"),
   });
 
-  // const getToken =
-  //   typeof window !== "undefined"
-  //     ? JSON.parse(localStorage.getItem("e-book") as any)
-  //     : null;
-  // const [token, setToken] = useState<any>(null);
-  // useEffect(() => {
-  //   if (getToken !== null) {
-  //     setToken(getToken);
-  //   }
-  // }, []);
-
   const [login, { isSuccess, isLoading, error, data }]: any = useLoginMutation(
     {}
   );
@@ -36,9 +28,10 @@ const Login = () => {
   };
 
   if (isSuccess) localStorage.setItem("e-book", JSON.stringify(data));
-  const router = useRouter();
+
   useEffect(() => {
     if (isSuccess) {
+      dispatch(setToken(data?.token));
       router.push("/main-page");
     }
   }, [isSuccess]);
@@ -144,7 +137,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Popup id="forgetPassword">
+      {/* <Popup id="forgetPassword">
         <>
           <div className="form-control">
             <label className="label">
@@ -165,7 +158,7 @@ const Login = () => {
             Submit
           </button>
         </>
-      </Popup>
+      </Popup> */}
     </>
   );
 };

@@ -3,6 +3,7 @@ import { apiSlice } from "../api/api-slice";
 import authSlice from "./slices/authSlice";
 import wishListSlice from "./slices/wishList.slice";
 import cartSlice from "./slices/cart.slice";
+import userSlice from "./slices/user.slice";
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -12,6 +13,8 @@ export const store = configureStore({
     wishList: wishListSlice,
 
     cart: cartSlice,
+
+    user: userSlice,
   },
 
   middleware: (getDefaultMiddleware) =>

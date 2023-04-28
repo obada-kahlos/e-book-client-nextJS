@@ -10,7 +10,6 @@ import {
   useRemoveFromCartMutation,
 } from "@/api/cart/api";
 import { toastStatus } from "@/utils/toastify";
-import { useGetUserInfQuery } from "@/api/user/api";
 import {
   decrementCart,
   incrementCart,
@@ -24,6 +23,9 @@ import {
   setWishList,
   wishListProps,
 } from "@/app/slices/wishList.slice";
+import { useGetUserInfQuery } from "@/api/user/api";
+import { setProfileData } from "@/app/slices/user.slice";
+import { setToken } from "@/app/slices/authSlice";
 
 interface BookProps {
   id: number;
@@ -35,6 +37,15 @@ interface BookProps {
 
 const MainPage = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const getToken =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("e-book") as any)
+      : null;
+  useEffect(() => {
+    dispatch(setToken(getToken?.token));
+  }, [router, dispatch, getToken]);
 
   const { data: booksByGenreOne, isLoading } = useGetBookByGenreQuery({
     id: 1,
@@ -42,7 +53,6 @@ const MainPage = () => {
     pageNumber: 1,
   });
 
-  console.log({ booksByGenreOne });
   const { data: booksByGenreTow } = useGetBookByGenreQuery({
     id: 2,
     pageSize: 8,
@@ -68,6 +78,7 @@ const MainPage = () => {
     addToCart({ Amount: 1, BookId: id });
     setProductIdInCart(id);
   };
+
   const [
     removeFromCart,
     { isSuccess: isSuccessRemoveFromCart, reset: resetRemove },
@@ -88,7 +99,6 @@ const MainPage = () => {
     resetAdd();
     resetRemove();
   }, [isSuccess, isSuccessRemoveFromCart]);
-  const { data: clientProfile } = useGetUserInfQuery({});
 
   const ids =
     typeof window !== "undefined"
@@ -112,6 +122,13 @@ const MainPage = () => {
     }
   };
   const wishList = useAppSelector((state) => state.wishList.wishLists);
+
+  const { data: profileData } = useGetUserInfQuery({});
+  useEffect(() => {
+    dispatch(setProfileData(profileData));
+  }, [dispatch, profileData]);
+  console.log({ profileData });
+
   return (
     <>
       <Head>
@@ -130,7 +147,8 @@ const MainPage = () => {
           <div className="wrapper flex justify-center items-center min-h-[350px]">
             <div className="text-center">
               <div className="max-w-2xl">
-                <h1 className={`md:text-5xl text-4xl font-bold lg:w-12/12`}>
+                <h1
+                  className={`md:text-5xl text-4xl font-bold lg:w-12/12 text-yellow-500`}>
                   Best Place to Find Your Favorite
                   <span className="text-bothColor"> Books.</span>
                 </h1>

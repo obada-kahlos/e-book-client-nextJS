@@ -18,7 +18,15 @@ const extendedApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Auth"],
     }),
+    refreshToken: builder.query({
+      query: () => ({
+        url: "/api/Accounts/RefershToken/refreshToken",
+        method: "Get",
+      }),
+      providesTags: ["Auth"],
+    }),
   }),
 });
 
-export const { useSignUpMutation, useLoginMutation } = extendedApi;
+export const { useSignUpMutation, useLoginMutation, useRefreshTokenQuery } =
+  extendedApi;
