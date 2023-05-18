@@ -25,8 +25,19 @@ const extendedApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["Auth"],
     }),
+    revokeToken: builder.mutation({
+      query: () => ({
+        url: `/api/Accounts/RevokeToken/revokeToken`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Auth"],
+    }),
   }),
 });
 
-export const { useSignUpMutation, useLoginMutation, useRefreshTokenQuery } =
-  extendedApi;
+export const {
+  useSignUpMutation,
+  useLoginMutation,
+  useRefreshTokenQuery,
+  useRevokeTokenMutation,
+} = extendedApi;

@@ -1,11 +1,6 @@
-import { useGetUserInfQuery } from "@/api/user/api";
 import React, { ReactElement, useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/app/hooks";
-import {
-  setProfileData,
-  toggleIsEdit,
-  toggleIsOpen,
-} from "@/app/slices/user.slice";
+import { toggleIsEdit, toggleIsOpen } from "@/app/slices/user.slice";
 import { AiOutlineClose } from "react-icons/ai";
 
 interface PopupProps {

@@ -101,6 +101,9 @@ const LandingPage = () => {
       dataAosOffset: "70",
     },
   ];
+
+  const [popover, setPopover] = useState<boolean>(false);
+
   return (
     <>
       <Head>

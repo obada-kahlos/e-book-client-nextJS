@@ -26,7 +26,10 @@ import {
 } from "@/app/slices/user.slice";
 import { Field, Form, Formik } from "formik";
 import { profileInputData } from "@/data/navbar/profile-input-data";
-import { useRefreshTokenQuery } from "@/api/register/api";
+import {
+  useRefreshTokenQuery,
+  useRevokeTokenMutation,
+} from "@/api/register/api";
 interface layoutProps {
   children: React.ReactElement | React.ReactElement[];
 }
@@ -48,11 +51,9 @@ const Layout: React.FC<layoutProps> = (props) => {
   //   isSuccess: isSuccessRefreshToken,
   //   error: errorRefreshToken,
   // } = useRefreshTokenQuery({});
-  // console.log({ refreshToken });
 
   const isOpen = useAppSelector((state) => state.user.isOpen);
   const isEdit = useAppSelector((state) => state.user.isEdit);
-  const profilePopupData = useAppSelector((state) => state.user.profileData);
   const handleEdit = () => {
     dispatch(toggleIsOpen(false));
     dispatch(toggleIsEdit(true));
@@ -87,14 +88,14 @@ const Layout: React.FC<layoutProps> = (props) => {
     setUploadedImage(null);
   };
 
-  console.log({ isLoadingUploadImage });
-
   useEffect(() => {
     if (isSuccess) {
       dispatch(toggleIsOpen(true));
       dispatch(toggleIsEdit(false));
     }
   }, [isSuccess]);
+
+  const profilePopupData = useAppSelector((state) => state.user.profileData);
 
   return (
     <>
@@ -123,14 +124,13 @@ const Layout: React.FC<layoutProps> = (props) => {
                   <CiLocationOn /> {profilePopupData?.address}
                 </span>
                 <span className="flex items-center gap-2">
-                  <CiMobile1 />{" "}
+                  <CiMobile1 />
                   {formatPhoneNumber(profilePopupData?.phoneNumber)}
                 </span>
               </div>
             </div>
             <div className="flex gap-1">
               <button
-                disabled={isLoadingUploadImage ? true : false}
                 className="btn gap-2 capitalize text-[18px]"
                 onClick={() => handleEdit()}>
                 <AiOutlineEdit /> Edit profile
@@ -138,6 +138,7 @@ const Layout: React.FC<layoutProps> = (props) => {
               {uploadedImage ? (
                 <>
                   <button
+                    disabled={isLoadingUploadImage ? true : false}
                     className={`btn gap-2 capitalize text-[18px]`}
                     onClick={() => handleAddImage()}>
                     <CiSaveDown1 /> Save
@@ -163,11 +164,7 @@ const Layout: React.FC<layoutProps> = (props) => {
           <div className="flex-1">
             <div className="relative flex justify-center items-center">
               <img
-                src={
-                  profilePopupData?.profilePhoto
-                    ? profilePopupData?.profilePhoto
-                    : "/images/avatar.jpeg"
-                }
+                src="/images/avatar.jpeg"
                 alt="User-Image"
                 className="w-[180px] h-[180px] rounded-full object-cover"
               />
@@ -281,7 +278,7 @@ const Layout: React.FC<layoutProps> = (props) => {
       <Aside />
       <main>{props.children}</main>
       <Footer />
-      <div className="w-64 md:w-96 h-96 md:h-full bg-blue-200 bg-opacity-30 absolute -top-64 md:-top-96 left-20 md:right-32 rounded-full pointer-events-none -rotate-45 transform -z-[0]"></div>
+      <div className="w-64 md:w-96 h-96 md:h-full dark:bg-[rgba(0,0,0,0.1)] z-[0] bg-blue-200 bg-opacity-30 absolute -top-64 md:-top-96 left-20 md:right-32 rounded-full pointer-events-none -rotate-45 transform"></div>
     </>
   );
 };

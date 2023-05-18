@@ -41,7 +41,7 @@ const Aside = () => {
 
   return (
     <>
-      <aside className="wish-list bg-base-100 shadow-lg">
+      <aside className="wish-list bg-base-100 dark:shadow-lg shadow">
         <div className="header">
           <p className="font-bold"> Wish List </p>
           <span
@@ -109,7 +109,6 @@ const Aside = () => {
                 height : 100vh;
                 overflow-y : auto;
                 overflow-x : hidden;
-                box-shadow: -10px 0px 10px 1px rgba(170, 170, 170,0.4);
                 transition: 0.3s ease;
                 z-index : 999999;
             }

@@ -226,3 +226,22 @@ div.about-wrapper {
 .active-link:hover:after {
   width: 100%;
 }
+
+/* popover animation  */
+div.search-popover {
+  animation: fadeIn 0.5s alternate;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+div.search-popover::-webkit-scrollbar {
+  display: none;
+}

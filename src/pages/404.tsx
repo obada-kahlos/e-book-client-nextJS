@@ -3,7 +3,6 @@ import { useAppDispatch } from "@/app/hooks";
 import { useRouter } from "next/router";
 import { setToken } from "@/app/slices/authSlice";
 import Link from "next/link";
-import { setProfileData } from "@/app/slices/user.slice";
 import { useGetUserInfQuery } from "@/api/user/api";
 
 const Index = () => {
@@ -19,14 +18,10 @@ const Index = () => {
   }, [router, dispatch, getToken]);
 
   const { data: profileData } = useGetUserInfQuery({});
-  useEffect(() => {
-    dispatch(setProfileData(profileData));
-  }, [dispatch, profileData]);
-
   return (
     <>
-      <div className="min-w-screen min-h-screen dark:dark:bg-gray-800 bg-blue-100 flex items-center p-5 lg:p-20 overflow-hidden relative">
-        <div className="flex-1 min-h-full min-w-full rounded-3xl bg-white shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
+      <div className="min-w-screen min-h-screen dark:bg-gray-800 bg-blue-100 flex items-center p-5 lg:p-20 overflow-hidden relative">
+        <div className="flex-1 min-h-full min-w-full rounded-3xl dark:bg-base-100 bg-white shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
           <div className="w-full md:w-1/2">
             <div className="mb-10 lg:mb-20">
               <h3 className="text-bothColor md:text-[40px] text-[28px] font-bold">

@@ -1,17 +1,26 @@
+import { setProfileData } from "@/app/slices/user.slice";
 import { apiSlice } from "../api-slice";
 
 const extendedApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUserInf: builder.query({
       query: () => ({
-        url: "/api/ClientProfile/get-user-profile",
+        url: "/api/Profile/get-user-profile",
         method: "GET",
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setProfileData(data));
+        } catch (error) {
+          return;
+        }
+      },
       providesTags: ["User"],
     }),
     editUserProfile: builder.mutation({
       query: (body) => ({
-        url: "/api/ClientProfile/update-user-profile",
+        url: "/api/Profile/update-user-profile",
         method: "PATCH",
         body: body,
       }),
@@ -20,7 +29,7 @@ const extendedApi = apiSlice.injectEndpoints({
 
     addProfileImage: builder.mutation({
       query: (profilePhoto) => ({
-        url: "/api/ClientProfile/upload-image",
+        url: "/api/Profile/upload-image",
         method: "POST",
         body: profilePhoto,
       }),

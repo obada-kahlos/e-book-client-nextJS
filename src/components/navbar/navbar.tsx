@@ -19,15 +19,15 @@ import {
   toggleWishList,
 } from "@/app/slices/wishList.slice";
 import { resetCartCount, setCartCount } from "@/app/slices/cart.slice";
-import {
-  resetProfileData,
-  setProfileData,
-  toggleIsOpen,
-} from "@/app/slices/user.slice";
-import { useGetUserInfQuery } from "@/api/user/api";
+import { resetProfileData, toggleIsOpen } from "@/app/slices/user.slice";
 import { resetToken } from "@/app/slices/authSlice";
 import Image from "next/image";
 import Search from "../search/search";
+import { useRevokeTokenMutation } from "@/api/register/api";
+import SearchPopover from "../search-popover/search-popover";
+import { useGetCartBookQuery } from "@/api/cart/api";
+
+import cookie from "js-cookie";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -44,27 +44,10 @@ const Navbar = () => {
     }
   }, [router]);
 
-  const handleDeleteToken = () => {
-    dispatch(resetToken());
-    localStorage.removeItem("e-book");
-    localStorage.removeItem("wishList");
-    localStorage.removeItem("myIds");
-    dispatch(resetProfileData({}));
-    dispatch(resetCartCount());
-    dispatch(resetWishCount());
-    router.push("/");
-    setToken(null);
-  };
-
-  // const { data: profileData } = useGetUserInfQuery({});
-  // useEffect(() => {
-  //   dispatch(setProfileData(profileData));
-  // }, [dispatch, profileData]);
-  // console.log({ profileData });
-
   const cartCount = useAppSelector((state) => state.cart.count);
   const wishCount = useAppSelector((state) => state.wishList.count);
   const profilePopupData = useAppSelector((state) => state.user.profileData);
+  const search = useAppSelector((state) => state.search.search);
 
   const handleOpenPopup = () => {
     dispatch(toggleIsOpen(true));
@@ -75,17 +58,45 @@ const Navbar = () => {
     dispatch(setWishList());
   }, [dispatch]);
 
+  const [
+    revokeToken,
+    { isLoading: isLoadingRevokeToken, isSuccess: isSuccessRevokeToken },
+  ] = useRevokeTokenMutation();
+
+  const handleDeleteToken = () => {
+    revokeToken({});
+  };
+
+  useEffect(() => {
+    if (isSuccessRevokeToken) {
+      localStorage.removeItem("e-book");
+      localStorage.removeItem("wishList");
+      localStorage.removeItem("myIds");
+      dispatch(resetToken());
+      dispatch(resetProfileData({}));
+      dispatch(resetCartCount());
+      dispatch(resetWishCount());
+      setToken(null);
+      router.push("/");
+    }
+  }, [isSuccessRevokeToken]);
+
+  const { data: cartData, refetch, isLoading } = useGetCartBookQuery({});
+
   return (
     <div className="navbar backdrop-blur-sm  md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md  z-[999]">
       <div className="navbar-start text-[#fff]">
         <Link
           href="/main-page"
-          className="btn btn-ghost normal-case text-xl text-bothColor"
-          style={{
-            fontFamily: lora.style.fontFamily,
-          }}>
+          className="btn btn-ghost normal-case text-xl text-bothColor font-mono">
           SAFA7AT
         </Link>
+        {token !== null ? (
+          <div className="relative">
+            <Search />
+            {search ? <SearchPopover /> : ""}
+          </div>
+        ) : null}
       </div>
       {token !== null ? (
         <div className="navbar-center  md:block hidden">
@@ -124,7 +135,6 @@ const Navbar = () => {
       }
       {token !== null ? (
         <div className="navbar-end">
-          <Search />
           <ul className="menu menu-horizontal px-1 md:hidden">
             <li tabIndex={0}>
               <a>
@@ -169,7 +179,9 @@ const Navbar = () => {
                 <div className="indicator">
                   <AiOutlineShoppingCart className="text-[20px]" />
                   <span className="badge badge-sm bg-primary indicator-item">
-                    {cartCount}
+                    {cartData?.response?.length > 0
+                      ? cartData?.response?.length
+                      : 0}
                   </span>
                 </div>
               </label>
@@ -177,7 +189,12 @@ const Navbar = () => {
                 tabIndex={0}
                 className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                 <div className="card-body">
-                  <span className="font-bold text-lg">{cartCount} Items</span>
+                  <span className="font-bold text-lg">
+                    {cartData?.response?.length > 0
+                      ? cartData?.response?.length
+                      : 0}
+                    Items
+                  </span>
                   <div className="card-actions">
                     <Link href={"/cart"} className="btn btn-primary btn-block">
                       View cart
@@ -190,18 +207,18 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full ">
-                  {profilePopupData?.profilePhoto ? (
+                  {/* {profilePopupData?.profilePhoto ? (
                     <Image
                       width={40}
                       height={40}
                       src={profilePopupData?.profilePhoto}
                       alt="User-Image"
                     />
-                  ) : (
-                    <span className="text-[40px]">
-                      <RxAvatar />
-                    </span>
-                  )}
+                  ) : ( */}
+                  <span className="text-[40px]">
+                    <RxAvatar />
+                  </span>
+                  {/* )} */}
                 </div>
               </label>
               <ul

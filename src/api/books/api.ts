@@ -24,7 +24,7 @@ const extendedApi = apiSlice.injectEndpoints({
     }),
     getSearch: builder.query({
       query: (search) => ({
-        url: `/api/Books/search-of-books?title=string&PageNumber=1&PageSize=10`,
+        url: `/api/Books/search-of-books?title=${search}&PageNumber=1&PageSize=10`,
         method: "GET",
       }),
     }),

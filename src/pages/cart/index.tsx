@@ -12,7 +12,8 @@ import { useAppDispatch } from "@/app/hooks";
 import { setToken } from "@/app/slices/authSlice";
 import Loading from "@/components/loading/loading";
 import { useGetUserInfQuery } from "@/api/user/api";
-import { setProfileData } from "@/app/slices/user.slice";
+import Image from "next/image";
+import Tooltip from "@/components/tooltip/tooltip";
 const Cart = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -27,17 +28,10 @@ const Cart = () => {
 
   const { data, refetch, isLoading } = useGetCartBookQuery({});
 
-  const { data: profileData } = useGetUserInfQuery({});
-  useEffect(() => {
-    dispatch(setProfileData(profileData));
-  }, [dispatch, profileData]);
-
   const [
     removeFromCart,
     { isSuccess: isSuccessRemoveFromCart, reset: resetRemove },
   ] = useRemoveFromCartMutation({});
-
-  console.log({ isSuccessRemoveFromCart });
 
   const setProductIdInCart = (id: number) => {
     const ids = JSON.parse(localStorage.getItem("myIds") || "[]") as number[];
@@ -75,10 +69,15 @@ const Cart = () => {
         <div className="wrapper mt-10">
           {data?.response?.length > 0 ? (
             <>
-              <h2 className="md:text-[30px] text-[20px] my-4">
-                Items In Cart : {data?.response?.length}
-              </h2>
-              <div className="overflow-x-auto my-[40px]">
+              <div className="mt-2 w-full flex justify-between items-center">
+                <h2 className="md:text-[30px] text-[20px] mb-4 font-mono">
+                  Shopping Cart
+                </h2>
+                <span className="text-bothColor font-bold text-[16px] underline cursor-pointer">
+                  Remove all
+                </span>
+              </div>
+              <div className="overflow-x-auto bg-base-100 mb-[40px] mt-[10px]">
                 <table className="table w-full">
                   <thead>
                     <tr>
@@ -106,10 +105,11 @@ const Cart = () => {
                         <tr key={key}>
                           <td> {item?.bookId} </td>
                           <td>
-                            <img
+                            <Image
                               src={item?.bookPhoto}
-                              alt=""
-                              className="w-[200px] object-cover"
+                              alt={item?.bookName}
+                              width={200}
+                              height={200}
                             />
                           </td>
                           <td> {item?.bookName} </td>
@@ -117,16 +117,20 @@ const Cart = () => {
                           <td> {item?.amount} </td>
                           <td>
                             <div className="flex gap-2">
-                              <button
-                                className="btn gap-2"
-                                onClick={() =>
-                                  handleRemoveItemFromCart(item.bookId)
-                                }>
-                                <IoCloseCircleOutline className="text-[20px]" />
-                              </button>
-                              <button className="btn gap-2">
-                                <BsCartCheck className="text-[20px]" />
-                              </button>
+                              <Tooltip text="Remove From Cart">
+                                <button
+                                  className="btn gap-2"
+                                  onClick={() =>
+                                    handleRemoveItemFromCart(item.bookId)
+                                  }>
+                                  <IoCloseCircleOutline className="text-[20px]" />
+                                </button>
+                              </Tooltip>
+                              <Tooltip text="Check Out">
+                                <button className="btn gap-2">
+                                  <BsCartCheck className="text-[20px]" />
+                                </button>
+                              </Tooltip>
                             </div>
                           </td>
                         </tr>
@@ -134,6 +138,22 @@ const Cart = () => {
                     )}
                   </tbody>
                 </table>
+                <div className="flex justify-end items-end px-7 mb-2">
+                  <div className="">
+                    <h3 className="text-[20px] font-mono">
+                      Sub Total:
+                      <span className="text-bothColor font-semibold ml-2 text-[20px]">
+                        {data?.response?.length}
+                      </span>
+                    </h3>
+                    <h3 className="text-[24px] font-mono">
+                      Total Price:
+                      <span className="text-bothColor font-semibold ml-2 text-[20px]">
+                        {data?.totalPrice}
+                      </span>
+                    </h3>
+                  </div>
+                </div>
               </div>
             </>
           ) : (

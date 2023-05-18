@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import {
   decrementWish,
   incrementWish,
+  removeItemWishList,
   setWishList,
 } from "@/app/slices/wishList.slice";
 import { setToken } from "@/app/slices/authSlice";
@@ -87,6 +88,7 @@ const Products = () => {
       );
       localStorage.setItem("wishList", JSON.stringify(updatedArray));
       dispatch(incrementWish(updatedArray.length));
+      dispatch(removeItemWishList(id));
     } else {
       storedArray.push(itemObject);
       localStorage.setItem("wishList", JSON.stringify(storedArray));
@@ -128,7 +130,9 @@ const Products = () => {
         <Loading />
       ) : (
         <div className="wrapper py-[40px]">
-          <ul className="md:flex items-center gap-3 mb-[20px] hidden" id="nav">
+          <ul
+            className="md:flex items-center w-full gap-3 mb-[20px] hidden"
+            id="nav">
             {genreData?.map(
               (item: { id: number; name: string }, key: number) => (
                 <Link
@@ -142,18 +146,6 @@ const Products = () => {
               )
             )}
           </ul>
-          <select className="md:hidden block w-full mb-[20px] select select-primary">
-            <option disabled selected>
-              Select Genre
-            </option>
-            {genreData?.map(
-              (item: { id: number; name: string }, key: number) => (
-                <option key={key} value={item.id}>
-                  {item.name}
-                </option>
-              )
-            )}
-          </select>
           <div className="flex md:justify-between justify-center gap-4 items-center flex-wrap">
             {data?.response?.map((item: BookProps, key: number) => {
               const inLocal = ids ? ids.includes(item.id) : null;

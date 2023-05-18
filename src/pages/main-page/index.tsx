@@ -20,11 +20,11 @@ import { useAppSelector, useAppDispatch } from "@/app/hooks";
 import {
   decrementWish,
   incrementWish,
+  removeItemWishList,
   setWishList,
   wishListProps,
 } from "@/app/slices/wishList.slice";
 import { useGetUserInfQuery } from "@/api/user/api";
-import { setProfileData } from "@/app/slices/user.slice";
 import { setToken } from "@/app/slices/authSlice";
 
 interface BookProps {
@@ -114,6 +114,7 @@ const MainPage = () => {
       );
       localStorage.setItem("wishList", JSON.stringify(updatedArray));
       dispatch(incrementWish(updatedArray.length));
+      dispatch(removeItemWishList(id));
     } else {
       storedArray.push(itemObject);
       localStorage.setItem("wishList", JSON.stringify(storedArray));
@@ -121,13 +122,10 @@ const MainPage = () => {
       dispatch(decrementWish(storedArray.length));
     }
   };
+
   const wishList = useAppSelector((state) => state.wishList.wishLists);
 
   const { data: profileData } = useGetUserInfQuery({});
-  useEffect(() => {
-    dispatch(setProfileData(profileData));
-  }, [dispatch, profileData]);
-  console.log({ profileData });
 
   return (
     <>

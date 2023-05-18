@@ -23,7 +23,6 @@ const BookInfo = () => {
   const dispatch = useAppDispatch();
   const { id } = router.query;
   const { data: bookData, isLoading } = useGetBookByIdQuery(id);
-  console.log({ bookData });
 
   const getToken =
     typeof window !== "undefined"
@@ -92,15 +91,17 @@ const BookInfo = () => {
             <h1 className="md:text-[30px] text-[24px] font-[600]">
               Product Info.
             </h1>
-            <div className="sm:grid grid-cols-12 gap-8 my-[20px] ">
-              <div className="xl:col-span-2 lg:col-span-3 sm:col-span-4 col-span-12 relative">
-                <img
+            <div className="flex justify-start items-start flex-wrap gap-8 my-[20px] ">
+              <div className="relative sm:w-fit w-full flex items-center justify-center">
+                <Image
                   src={bookData?.image}
                   alt={bookData?.title}
-                  className="mx-auto w-[200px] object-cover cursor-pointer rounded-md"
+                  width={200}
+                  height={200}
+                  className=""
                 />
               </div>
-              <div className="xl:col-span-9 lg:col-span-9 sm:col-span-8 col-span-12 md:my-0 my-4">
+              <div className="md:my-0 my-4">
                 <div className="flex justify-between md:items-center items-start md:flex-row flex-col">
                   <h1 className="md:text-[30px] text-[24px] font-[500]">
                     {bookData?.title}
@@ -129,29 +130,26 @@ const BookInfo = () => {
                   title="Number Of Pages"
                   desc={bookData?.numberPages}
                 />
-                <div className="flex justify-end  mt-[10px] gap-2">
-                  <Counter
-                    quantity={bookData?.quantity}
-                    counter={counter}
-                    setCounter={setCounter}
-                  />
-                  <button className="btn btn-primary gap-2">
-                    <span className="text-[20px]">
-                      <IoCartOutline />
-                    </span>
-                    <span
-                      className="sm:block hidden"
-                      onClick={() => {
-                        const inLocal = ids ? ids.includes(bookData.id) : null;
-                        inLocal
-                          ? handleAddToCart(bookData?.id)
-                          : handelRemoveFromCart(bookData?.id);
-                      }}>
-                      Add To Cart
-                    </span>
-                  </button>
-                </div>
               </div>
+            </div>
+            <div className="flex justify-end  mt-[10px] gap-2">
+              <Counter
+                quantity={bookData?.quantity}
+                counter={counter}
+                setCounter={setCounter}
+              />
+              <button className="btn btn-primary gap-2">
+                <span className="text-[20px]">
+                  <IoCartOutline />
+                </span>
+                <span
+                  className="sm:block hidden"
+                  onClick={() => {
+                    handleAddToCart(bookData?.id);
+                  }}>
+                  Add To Cart
+                </span>
+              </button>
             </div>
           </div>
           {/* <div className="wrapper py-[40px]">
