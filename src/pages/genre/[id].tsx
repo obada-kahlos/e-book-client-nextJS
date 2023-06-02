@@ -21,6 +21,7 @@ import {
   setWishList,
 } from "@/app/slices/wishList.slice";
 import { setToken } from "@/app/slices/authSlice";
+import { useGetUserInfQuery } from "@/api/user/api";
 interface BookProps {
   id: number;
   image: string;
@@ -123,6 +124,8 @@ const Products = () => {
     typeof window !== "undefined"
       ? (JSON.parse(localStorage.getItem("myIds") || "[]") as number[])
       : undefined;
+
+  const { data: profileData } = useGetUserInfQuery({});
 
   return (
     <>

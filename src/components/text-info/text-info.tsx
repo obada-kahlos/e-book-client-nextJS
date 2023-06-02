@@ -7,8 +7,8 @@ interface textInfoProps {
 
 const TextInfo: React.FC<textInfoProps> = (props) => {
   return (
-    <p className="my-[5px]">
-      <span className="font-[500] dark:text-[#fff]">{props.title} :</span>{" "}
+    <p className="my-[5px] break-words">
+      <span className="font-[500] dark:text-[#fff]">{props.title} : </span>
       {props.desc}
     </p>
   );

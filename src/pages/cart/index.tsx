@@ -54,6 +54,7 @@ const Cart = () => {
     refetch();
     resetRemove();
   }, [isSuccessRemoveFromCart, router, refetch, resetRemove]);
+  const { data: profileData } = useGetUserInfQuery({});
 
   return (
     <>

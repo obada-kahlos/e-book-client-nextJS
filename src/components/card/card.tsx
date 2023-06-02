@@ -27,11 +27,9 @@ const Card: React.FC<cardProps> = ({ ...props }) => {
   return (
     <div className="card w-[300px] bg-base-100 shadow-xl">
       <figure className="px-5 pt-5">
-        <img
-          src={props.img}
-          alt={props.title}
-          className="rounded-xl w-[60%] h-[200px]"
-        />
+        <div className="relative rounded-xl w-[60%] h-[200px] overflow-hidden">
+          <Image src={props.img} alt={props.title} fill />
+        </div>
       </figure>
       <div className="card-body items-center text-center">
         <h2 className="card-title">{props.title}</h2>

@@ -18,6 +18,7 @@ import { decrementCart, incrementCart } from "@/app/slices/cart.slice";
 import { useAppDispatch } from "@/app/hooks";
 import { toastStatus } from "@/utils/toastify";
 import { setToken } from "@/app/slices/authSlice";
+import { useGetUserInfQuery } from "@/api/user/api";
 const BookInfo = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -81,6 +82,8 @@ const BookInfo = () => {
     resetRemove();
   }, [isSuccess, isSuccessRemoveFromCart]);
 
+  const { data: profileData } = useGetUserInfQuery({});
+
   return (
     <>
       {isLoading ? (
@@ -92,13 +95,12 @@ const BookInfo = () => {
               Product Info.
             </h1>
             <div className="flex justify-start items-start flex-wrap gap-8 my-[20px] ">
-              <div className="relative sm:w-fit w-full flex items-center justify-center">
+              <div className="relative sm:w-fit flex items-center justify-center">
                 <Image
                   src={bookData?.image}
                   alt={bookData?.title}
                   width={200}
                   height={200}
-                  className=""
                 />
               </div>
               <div className="md:my-0 my-4">
@@ -107,9 +109,13 @@ const BookInfo = () => {
                     {bookData?.title}
                   </h1>
                 </div>
-                <TextInfo title="Description" desc={bookData?.description} />
+                <div className="w-8/12">
+                  <TextInfo title="Description" desc={bookData?.description} />
+                </div>
                 <div>
-                  <span className="dark:text-[#fff] font-[500]">Authors :</span>
+                  <span className="dark:text-[#fff] font-[500]">
+                    Authors :{" "}
+                  </span>
                   {bookData?.authors?.length > 0 ? (
                     <>
                       {bookData?.authors?.map((item: any, key: number) => (

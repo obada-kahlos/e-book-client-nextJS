@@ -17,6 +17,7 @@ import { HiOutlineArrowDownTray } from "react-icons/hi2";
 import SectionTitle from "@/components/section-title/section-title";
 import ContactUs from "@/components/contact-us/contact-us";
 import { useRouter } from "next/router";
+import { useGetUserInfQuery } from "@/api/user/api";
 
 const lora = Lora({
   weight: "700",
@@ -103,6 +104,7 @@ const LandingPage = () => {
   ];
 
   const [popover, setPopover] = useState<boolean>(false);
+  const { data: profileData } = useGetUserInfQuery({});
 
   return (
     <>

@@ -82,6 +82,10 @@ const Navbar = () => {
   }, [isSuccessRevokeToken]);
 
   const { data: cartData, refetch, isLoading } = useGetCartBookQuery({});
+  const userImage =
+    typeof window !== "undefined"
+      ? (localStorage.getItem("profilePhoto") as string)
+      : null;
 
   return (
     <div className="navbar backdrop-blur-sm  md:px-[120px] px-[10px] sticky top-0 left-0 w-full shadow-md  z-[999]">
@@ -207,18 +211,18 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full ">
-                  {/* {profilePopupData?.profilePhoto ? (
+                  {userImage ? (
                     <Image
                       width={40}
                       height={40}
-                      src={profilePopupData?.profilePhoto}
+                      src={userImage ? userImage : ""}
                       alt="User-Image"
                     />
-                  ) : ( */}
-                  <span className="text-[40px]">
-                    <RxAvatar />
-                  </span>
-                  {/* )} */}
+                  ) : (
+                    <span className="text-[40px]">
+                      <RxAvatar />
+                    </span>
+                  )}
                 </div>
               </label>
               <ul

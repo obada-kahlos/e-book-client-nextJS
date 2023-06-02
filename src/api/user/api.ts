@@ -26,13 +26,35 @@ const extendedApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
-
     addProfileImage: builder.mutation({
       query: (profilePhoto) => ({
-        url: "/api/Profile/upload-image",
+        url: "api/Profile/upload-image",
         method: "POST",
         body: profilePhoto,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.setItem("profilePhoto", data?.profilePhoto);
+        } catch (error) {
+          return;
+        }
+      },
+      invalidatesTags: ["User"],
+    }),
+    removeProfileImage: builder.mutation({
+      query: () => ({
+        url: "api/Profile/remove-image",
+        method: "DELETE",
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.removeItem("profilePhoto");
+        } catch (error) {
+          return;
+        }
+      },
       invalidatesTags: ["User"],
     }),
   }),
@@ -42,4 +64,5 @@ export const {
   useGetUserInfQuery,
   useEditUserProfileMutation,
   useAddProfileImageMutation,
+  useRemoveProfileImageMutation,
 } = extendedApi;

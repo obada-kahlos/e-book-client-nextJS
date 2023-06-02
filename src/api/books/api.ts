@@ -2,6 +2,24 @@ import { apiSlice } from "../api-slice";
 
 const extendedApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getAllBooks: builder.query({
+      query: ({ pageNumber }) => ({
+        url: `/api/Books/get-all-books?PageNumber=${pageNumber}&PageSize=10`,
+        method: "GET",
+      }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      // Always merge incoming data to the cache entry
+      // merge: (currentCache, newItems) => {
+      //   currentCache.push(...newItems);
+      // },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
+      providesTags: ["Books"],
+    }),
     getBookByGenre: builder.query({
       query: ({ id, pageSize, pageNumber }) => ({
         url: `/api/Books/get-book-by-genre/${id}?PageNumber=${pageNumber}&PageSize=${pageSize}`,
@@ -32,6 +50,7 @@ const extendedApi = apiSlice.injectEndpoints({
 });
 
 export const {
+  useGetAllBooksQuery,
   useGetBookByGenreQuery,
   useGetBookByIdQuery,
   useGetGenreQuery,

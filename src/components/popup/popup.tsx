@@ -25,7 +25,9 @@ const Popup: React.FC<PopupProps> = ({ open, children }) => {
       {open && (
         <div className="popup-overlay" onClick={handleClose}>
           <div
-            className={`popup bg-blue-100 ${animate ? "popup-animate" : ""}`}
+            className={`popup dark:bg-base-100 bg-blue-100 ${
+              animate ? "popup-animate" : ""
+            }`}
             onClick={(e) => e.stopPropagation()}>
             <div className="absolute top-[-15px] right-[-15px]">
               <button
@@ -54,7 +56,7 @@ const Popup: React.FC<PopupProps> = ({ open, children }) => {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 600px;
+            width: 750px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             height : auto;

@@ -10,6 +10,7 @@ import {
   useAddProfileImageMutation,
   useEditUserProfileMutation,
   useGetUserInfQuery,
+  useRemoveProfileImageMutation,
 } from "@/api/user/api";
 import Popup from "../popup/popup";
 import Image from "next/image";
@@ -30,6 +31,7 @@ import {
   useRefreshTokenQuery,
   useRevokeTokenMutation,
 } from "@/api/register/api";
+import { toastStatus } from "@/utils/toastify";
 interface layoutProps {
   children: React.ReactElement | React.ReactElement[];
 }
@@ -61,32 +63,31 @@ const Layout: React.FC<layoutProps> = (props) => {
 
   const [editProfile, { data, isLoading, error, isSuccess }]: any =
     useEditUserProfileMutation();
-
-  const [uploadedImage, setUploadedImage] = useState<
-    string | ArrayBuffer | null
-  >();
-  const onUploadFile = (event: any) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        const image = reader.result;
-        setUploadedImage(image);
-      });
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  };
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [
     addProfileImage,
     {
       data: imageData,
       isSuccess: isSuccessUploadImage,
       isLoading: isLoadingUploadImage,
+      error: errorUploadImage,
+      isError,
     },
   ] = useAddProfileImageMutation();
+
+  console.log({ errorUploadImage });
+  console.log({ isError });
+
   const handleAddImage = () => {
-    addProfileImage({ profilePhoto: uploadedImage });
-    setUploadedImage(null);
+    if (uploadedImage) {
+      const formData = new FormData();
+      formData.append("Image", uploadedImage);
+      addProfileImage(formData);
+      setUploadedImage(null);
+    }
   };
+  const [removerImage, { isSuccess: isSuccessRemove, reset: resetRemove }] =
+    useRemoveProfileImageMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -97,10 +98,27 @@ const Layout: React.FC<layoutProps> = (props) => {
 
   const profilePopupData = useAppSelector((state) => state.user.profileData);
 
+  const userImage =
+    typeof window !== "undefined"
+      ? (localStorage.getItem("profilePhoto") as string)
+      : null;
+  useEffect(() => {
+    if (isError) {
+      toastStatus("isError", "Image cannot be more than 1 MB!");
+    }
+    if (isSuccessUploadImage) {
+      toastStatus("isSuccess", "Added Successfully");
+    }
+    if (isSuccessRemove) {
+      toastStatus("isSuccess", "Remove Successfully");
+    }
+    resetRemove();
+  }, [isError, isSuccessRemove, isSuccessUploadImage]);
+
   return (
     <>
       <Popup open={isOpen}>
-        <div className="flex items-center md:flex-row flex-col gap-4">
+        <div className="flex items-center justify-between md:flex-row flex-col gap-4">
           <div className="h-[250px] py-[10px] pl-2 flex justify-between flex-col flex-1">
             <div>
               <div className="mb-[10px]">
@@ -152,22 +170,54 @@ const Layout: React.FC<layoutProps> = (props) => {
                   {profilePopupData?.profilePhoto ? "Edit Image" : "Add image"}
                 </label>
               )}
+
+              {userImage ? (
+                <button
+                  disabled={isLoadingUploadImage ? true : false}
+                  className={`btn gap-2 capitalize text-[18px]`}
+                  onClick={() => removerImage({})}>
+                  <CiSaveDown1 /> Remove Image
+                </button>
+              ) : null}
+
               <input
                 type="file"
                 id="upload-Image"
-                onChange={onUploadFile}
+                onChange={(event) => {
+                  if (event.target.files) {
+                    setUploadedImage(event.target.files[0]);
+                  }
+                }}
                 hidden
               />
             </div>
           </div>
 
           <div className="flex-1">
-            <div className="relative flex justify-center items-center">
-              <img
-                src="/images/avatar.jpeg"
-                alt="User-Image"
-                className="w-[180px] h-[180px] rounded-full object-cover"
-              />
+            <div className="relative flex justify-end items-center">
+              {uploadedImage || userImage ? (
+                <div className="relative w-[180px] h-[180px] rounded-full overflow-hidden">
+                  <Image
+                    src={
+                      uploadedImage
+                        ? URL.createObjectURL(uploadedImage)
+                        : userImage
+                    }
+                    alt="User-Image"
+                    fill
+                    className=" object-cover"
+                  />
+                </div>
+              ) : (
+                <div className="relative w-[180px] h-[180px] rounded-full overflow-hidden">
+                  <Image
+                    src={"/images/avatar.jpeg"}
+                    alt="User-Image"
+                    fill
+                    className=" object-cover"
+                  />
+                </div>
+              )}
               {isLoadingUploadImage && (
                 <div className="absolute w-[180px] h-[180px] rounded-full flex items-center justify-center bg-[rgba(0,0,0,0.2)]">
                   <div role="status">
