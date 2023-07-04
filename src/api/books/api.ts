@@ -1,22 +1,52 @@
 import { apiSlice } from "../api-slice";
+import { addBookItem, resetBookList } from "../../app/slices/books-list.slice";
+interface BookProps {
+  id: number;
+  image: string;
+  price: number;
+  title: string;
+  description?: string;
+}
 
 const extendedApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllBooks: builder.query({
       query: ({ pageNumber }) => ({
-        url: `/api/Books/get-all-books?PageNumber=${pageNumber}&PageSize=10`,
+        url: `/api/Books/get-all-books?PageNumber=${pageNumber}&PageSize=8`,
         method: "GET",
       }),
+      transformResponse: (response: { response: BookProps[] }) => {
+        const bookItem = response.response.map((obj: BookProps) => {
+          return {
+            id: obj.id,
+            image: obj.image,
+            price: obj.price,
+            title: obj.title,
+            description: obj.description,
+          };
+        });
+        return bookItem;
+      },
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;
       },
       // Always merge incoming data to the cache entry
-      // merge: (currentCache, newItems) => {
-      //   currentCache.push(...newItems);
-      // },
+      merge: (currentCache, newItems) => {
+        currentCache.push(...newItems);
+      },
       // Refetch when the page arg changes
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
+      },
+      async onQueryStarted({ word }, { queryFulfilled, dispatch }) {
+        try {
+          const { data } = await queryFulfilled;
+          data.forEach((item) => {
+            dispatch(addBookItem(item));
+          });
+        } catch (error) {
+          console.log(error);
+        }
       },
       providesTags: ["Books"],
     }),

@@ -9,11 +9,11 @@ import {
 import Image from "next/image";
 
 interface cardProps {
-  img: string;
-  title: string;
-  desc?: string;
+  img?: string;
+  title?: string;
+  desc?: string | null;
   bade?: string;
-  price: string | number;
+  price?: string | number;
   id?: number;
   inLocal?: boolean | undefined;
   inWishList?: boolean | null;
@@ -25,7 +25,7 @@ interface cardProps {
 
 const Card: React.FC<cardProps> = ({ ...props }) => {
   return (
-    <div className="card w-[300px] bg-base-100 shadow-xl">
+    <div className="card w-[300px] bg-base-100 shadow-xl min-h-[500px]">
       <figure className="px-5 pt-5">
         <div className="relative rounded-xl w-[60%] h-[200px] overflow-hidden">
           <Image src={props.img} alt={props.title} fill />

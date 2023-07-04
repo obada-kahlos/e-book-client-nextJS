@@ -5,6 +5,8 @@ import wishListSlice from "./slices/wishList.slice";
 import cartSlice from "./slices/cart.slice";
 import userSlice from "./slices/user.slice";
 import searchSlice from "./slices/search.slice";
+import { booksListSlice } from "./slices/books-list.slice";
+
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -18,6 +20,8 @@ export const store = configureStore({
     user: userSlice,
 
     search: searchSlice,
+
+    booksListSlice,
   },
 
   middleware: (getDefaultMiddleware) =>
